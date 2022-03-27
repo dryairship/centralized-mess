@@ -65,18 +65,19 @@ END IF //
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'menus') THEN
     BEGIN
         CREATE TABLE menus (
-            menu_id     INT             NOT NULL    AUTO_INCREMENT  UNIQUE,
+            menu_id     INT             NOT NULL    AUTO_INCREMENT,
             menu_name   VARCHAR(50)     NOT NULL,
             mess_id     INT             NOT NULL,
+            menu_time   ENUM('Breakfast', 'Lunch', 'Dinner')    NOT NULL,
             contents    VARCHAR(500)    NOT NULL,
             PRIMARY KEY (mess_id, menu_id),
             FOREIGN KEY (mess_id) REFERENCES messes(mess_id)
         );
         INSERT INTO menus 
-            (menu_id, menu_name, mess_id, contents)
+            (menu_id, menu_name, menu_time, mess_id, menu_time, contents)
         VALUES
-            (1, 'Breakfast (Friday) March Menu', 9, 'Aloo & Gobhi Paratha, Dahi, Chutney, Milk/Egg, Bread, Jam/Peanut Butter'),
-            (2, 'Breakfast (Saturday) March Menu', 9, 'Dosa, Milk/Egg, Bread, Jam/Peanut Butter');
+            (1, 'Breakfast (Friday) March Menu', 9, 'Breakfast', 'Aloo & Gobhi Paratha, Dahi, Chutney, Milk/Egg, Bread, Jam/Peanut Butter'),
+            (2, 'Breakfast (Saturday) March Menu', 9, 'Breakfast', 'Dosa, Milk/Egg, Bread, Jam/Peanut Butter');
     END;
 END IF //
 

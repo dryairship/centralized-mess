@@ -10,9 +10,12 @@ import { Lock as LockIcon } from '../icons/lock';
 import { Selector as SelectorIcon } from '../icons/selector';
 import { ShoppingBag as ShoppingBagIcon } from '../icons/shopping-bag';
 import { User as UserIcon } from '../icons/user';
+import { Search as SearchIcon } from '../icons/search';
 import { UserAdd as UserAddIcon } from '../icons/user-add';
 import { Users as UsersIcon } from '../icons/users';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import ListAltIcon from '@mui/icons-material/ListAlt';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
@@ -21,6 +24,21 @@ const items = [
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
     title: 'Dashboard'
+  },
+  {
+    href: '/student/next-meal',
+    icon: (<SearchIcon fontSize="small" />),
+    title: 'Lookup Next Meal'
+  },
+  {
+    href: '/manager/add-menus',
+    icon: (<ListAltIcon fontSize="small" />),
+    title: 'Add Menus'
+  },
+  {
+    href: '/manager/add-meals',
+    icon: (<AddBoxIcon fontSize="small" />),
+    title: 'Add Meals'
   },
   {
     href: '/customers',
