@@ -62,13 +62,18 @@ const sections = [
     ]
   },
   {
-    title: "Meal Management",
+    title: "Meals Management",
     icon: (<LocalDiningIcon fontSize="small" />),
     items: [
       {
         href: '/manager/add-meals',
         icon: (<AddBoxIcon fontSize="small" />),
         title: 'Add Meals'
+      },
+      {
+        href: '/manager/manage-meals',
+        icon: (<ListIcon fontSize="small" />),
+        title: 'Upcoming Meals'
       },
     ],
   }
@@ -84,16 +89,6 @@ const items = [
     href: '/student/next-meal',
     icon: (<SearchIcon fontSize="small" />),
     title: 'Lookup Next Meal'
-  },
-  {
-    href: '/manager/add-menus',
-    icon: (<ListAltIcon fontSize="small" />),
-    title: 'Add Menus'
-  },
-  {
-    href: '/manager/add-meals',
-    icon: (<AddBoxIcon fontSize="small" />),
-    title: 'Add Meals'
   },
   {
     href: '/customers',
