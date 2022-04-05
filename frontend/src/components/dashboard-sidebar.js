@@ -33,7 +33,9 @@ import { XCircle as XCircleIcon } from '../icons/x-circle';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ListIcon from '@mui/icons-material/List';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
 import AddCardIcon from '@mui/icons-material/AddCard';
+import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
@@ -54,10 +56,21 @@ const sections = [
       },
       {
         href: '/manager/manage-extras',
-        icon: (<AddCardIcon fontSize="small" />),
+        icon: (<FastfoodIcon fontSize="small" />),
         title: 'Manage Extras'
       },
     ]
+  },
+  {
+    title: "Meal Management",
+    icon: (<LocalDiningIcon fontSize="small" />),
+    items: [
+      {
+        href: '/manager/add-meals',
+        icon: (<AddBoxIcon fontSize="small" />),
+        title: 'Add Meals'
+      },
+    ],
   }
 ];
 

@@ -1,71 +1,88 @@
+import { useState } from 'react';
 import {
-  Avatar,
   Box,
   Button,
   Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Typography
+  Grid,
 } from '@mui/material';
+import { AddMealsDetails } from './add-meals-details';
 
-const user = {
-  avatar: '/static/images/avatars/avatar_6.png',
-  city: 'Los Angeles',
-  country: 'USA',
-  jobTitle: 'Senior Developer',
-  name: 'Katarina Smith',
-  timezone: 'GTM-7'
-};
+export const AddMeals = (props) => {
 
-export const AddMeals = (props) => (
-  <Card {...props}>
-    <CardContent>
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column'
-        }}
-      >
-        <Avatar
-          src={user.avatar}
+  const [meals, setMeals] = useState([{mealName: '', mealTime:'Breakfast', mealContent:''}]);
+
+  const onChildChange = (index, field, value) => {
+    setMeals([
+      ...meals.slice(0,index),
+      {
+        ...meals[index],
+        [field]: value,
+      },
+      ...meals.slice(index+1),
+    ]);
+  }
+
+  const onChildDelete = (index) => {
+    console.log("Deleting", index);
+    setMeals([
+      ...meals.slice(0,index),
+      ...meals.slice(index+1),
+    ]);
+  }
+
+  const onAddAnotherMeal = () => {
+    setMeals([
+      ...meals,
+      {mealName: '', mealTime:'Breakfast', mealContent:''},
+    ]);
+  }
+
+  const onSaveMeals = () => {
+    console.log(meals);
+  }
+
+  return (
+    <form
+      autoComplete="off"
+      noValidate
+      {...props}
+    >
+      <Card xs={{gap: 2}}>
+        <Grid container spacing={2}>
+          {meals.map((meal, index) => 
+            <Grid item key={index}>
+              <AddMealsDetails
+                meal={meal}
+                index={index}
+                onChange={onChildChange}
+                onDelete={onChildDelete}/>
+            </Grid>
+          )}
+        </Grid>
+        <Box
           sx={{
-            height: 64,
-            mb: 2,
-            width: 64
+            display: 'flex',
+            justifyContent: 'flex-end',
+            p: 2
           }}
-        />
-        <Typography
-          color="textPrimary"
-          gutterBottom
-          variant="h5"
+          gap={3}
         >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {`${user.city} ${user.country}`}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.timezone}
-        </Typography>
-      </Box>
-    </CardContent>
-    <Divider />
-    <CardActions>
-      <Button
-        color="primary"
-        fullWidth
-        variant="text"
-      >
-        Upload picture
-      </Button>
-    </CardActions>
-  </Card>
-);
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={onAddAnotherMeal}
+          >
+            Add another meal
+          </Button>
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={onSaveMeals}
+          >
+            Save details
+          </Button>
+        </Box>
+      </Card>
+    </form>
+  );
+};

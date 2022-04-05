@@ -2,6 +2,7 @@ import Head from 'next/head';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { AddMenus } from '../../components/add-menus/add-menus';
 import { DashboardLayout } from '../../components/dashboard-layout';
+import { extras } from '../../__mocks__/extras';
 
 const AddMenusPage = () => (
   <>
@@ -34,7 +35,7 @@ const AddMenusPage = () => (
             md={6}
             xs={12}
           >
-            <AddMenus />
+            <AddMenus availableExtras={extras}/>
           </Grid>
         </Grid>
       </Container>

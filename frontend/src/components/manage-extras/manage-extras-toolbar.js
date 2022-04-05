@@ -32,7 +32,7 @@ export const ManageExtrasToolbar = ({onFilterChange, ...props}) => {
       ...newItem,
       [event.target.name]: event.target.value
     });
-  };
+  }; 
 
   const handleAddExtraSubmit = () => {
     console.log(newItem);

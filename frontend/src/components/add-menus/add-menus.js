@@ -9,7 +9,7 @@ import { AddMenusDetails } from './add-menus-details';
 
 export const AddMenus = (props) => {
 
-  const [menus, setMenus] = useState([{menuName: '', menuTime:'Breakfast', menuContent:''}]);
+  const [menus, setMenus] = useState([{menuName: '', menuTime:'Breakfast', menuContent:'', extras: []}]);
 
   const onChildChange = (index, field, value) => {
     setMenus([
@@ -33,7 +33,7 @@ export const AddMenus = (props) => {
   const onAddAnotherMenu = () => {
     setMenus([
       ...menus,
-      {menuName: '', menuTime:'Breakfast', menuContent:''},
+      {menuName: '', menuTime:'Breakfast', menuContent:'', extras: []},
     ]);
   }
 
@@ -55,7 +55,9 @@ export const AddMenus = (props) => {
                 menu={menu}
                 index={index}
                 onChange={onChildChange}
-                onDelete={onChildDelete}/>
+                onDelete={onChildDelete}
+                availableExtras={props.availableExtras}
+              />
             </Grid>
           )}
         </Grid>
