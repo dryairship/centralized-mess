@@ -9,9 +9,11 @@ import { AddMealsDetails } from './add-meals-details';
 
 export const AddMeals = (props) => {
 
-  const [meals, setMeals] = useState([{mealName: '', mealTime:'Breakfast', mealContent:''}]);
+  const [meals, setMeals] = useState([{mealTime:'Breakfast', mealContent:'', mealDates:[]}]);
 
   const onChildChange = (index, field, value) => {
+    console.log(index, field);
+    console.log(value);
     setMeals([
       ...meals.slice(0,index),
       {
@@ -33,7 +35,7 @@ export const AddMeals = (props) => {
   const onAddAnotherMeal = () => {
     setMeals([
       ...meals,
-      {mealName: '', mealTime:'Breakfast', mealContent:''},
+      {mealTime:'Breakfast', mealContent:'', mealDates: []},
     ]);
   }
 
@@ -55,7 +57,9 @@ export const AddMeals = (props) => {
                 meal={meal}
                 index={index}
                 onChange={onChildChange}
-                onDelete={onChildDelete}/>
+                onDelete={onChildDelete}
+                availableMenus={props.availableMenus}
+              />
             </Grid>
           )}
         </Grid>

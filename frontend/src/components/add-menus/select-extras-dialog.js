@@ -59,7 +59,7 @@ export const SelectExtrasDialog = (props) => {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button color='success' variant='contained' onClick={props.onSubmit}>Add Item</Button>
+        <Button color='success' variant='contained' onClick={props.onSubmit}>Add Selected Items</Button>
         <Button color='error' variant='contained' onClick={props.onClose}>Close</Button>
       </DialogActions>
     </Dialog>

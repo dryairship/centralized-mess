@@ -1,8 +1,9 @@
 import Head from 'next/head';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import { AddMeals } from '../../components/add-meals/add-meals';
-import { AddMealsDetails } from '../../components/add-meals/add-meals-details';
 import { DashboardLayout } from '../../components/dashboard-layout';
+import { extras } from '../../__mocks__/extras';
+import { menus } from '../../__mocks__/menus';
 
 const AddMealsPage = () => (
   <>
@@ -31,19 +32,11 @@ const AddMealsPage = () => (
         >
           <Grid
             item
-            lg={4}
-            md={6}
-            xs={12}
-          >
-            <AddMeals />
-          </Grid>
-          <Grid
-            item
             lg={8}
             md={6}
             xs={12}
           >
-            <AddMealsDetails />
+            <AddMeals availableExtras={extras} availableMenus={menus}/>
           </Grid>
         </Grid>
       </Container>
