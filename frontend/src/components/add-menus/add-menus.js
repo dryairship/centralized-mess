@@ -50,7 +50,7 @@ export const AddMenus = (props) => {
       <Card xs={{gap: 2}}>
         <Grid container spacing={2}>
           {menus.map((menu, index) => 
-            <Grid item>
+            <Grid item key={index}>
               <AddMenusDetails
                 menu={menu}
                 index={index}

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Box, Button, ListItem } from '@mui/material';
 
 export const NavItem = (props) => {
-  const { href, icon, title, ...others } = props;
+  const { href, icon, title, subMenu, ...others } = props;
   const router = useRouter();
   const active = href ? (router.pathname === href) : false;
 
@@ -15,7 +15,7 @@ export const NavItem = (props) => {
         display: 'flex',
         mb: 0.5,
         py: 0,
-        px: 2
+        px: subMenu ? 4 : 2,
       }}
       {...others}
     >

@@ -1,8 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
-import { Box, Button, Divider, Drawer, Typography, useMediaQuery } from '@mui/material';
+import { 
+  Box, 
+  Button, 
+  Divider, 
+  Drawer, 
+  Typography, 
+  useMediaQuery, 
+  List, 
+  ListSubheader, 
+  ListItemButton, 
+  ListItemIcon, 
+  ListItemText,
+  ExpandLess,
+  ExpandMore,
+  ListItem,
+  Collapse,
+} from '@mui/material';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { ChartBar as ChartBarIcon } from '../icons/chart-bar';
 import { Cog as CogIcon } from '../icons/cog';
@@ -16,8 +32,28 @@ import { Users as UsersIcon } from '../icons/users';
 import { XCircle as XCircleIcon } from '../icons/x-circle';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ListAltIcon from '@mui/icons-material/ListAlt';
+import ListIcon from '@mui/icons-material/List';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
+
+const sections = [
+  {
+    title: "Menu Management",
+    icon: (<ListAltIcon fontSize="small" />),
+    items: [
+      {
+        href: '/manager/add-menus',
+        icon: (<AddBoxIcon fontSize="small" />),
+        title: 'Add Menus'
+      },
+      {
+        href: '/manager/manage-menus',
+        icon: (<ListIcon fontSize="small" />),
+        title: 'Manage Menus'
+      },
+    ]
+  }
+];
 
 const items = [
   {
@@ -79,11 +115,20 @@ const items = [
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
+  const [menuOpen, setMenuOpen] = useState([false]);
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false
   });
+
+  const toggleNavBarMenu = (index) => {
+    setMenuOpen([
+      ...menuOpen.slice(0, index),
+      !menuOpen[index],
+      ...menuOpen.slice(index+1),
+    ])
+  }
 
   useEffect(
     () => {
@@ -169,6 +214,51 @@ export const DashboardSidebar = (props) => {
             my: 3
           }}
         />
+        <Box sx={{ flexGrow: 1 }}>
+          {sections.map((section, index) => 
+            <div key={index}>
+              <ListItem>
+                <Button
+                  component="a"
+                  startIcon={section.icon}
+                  disableRipple
+                  sx={{
+                    borderRadius: 1,
+                    color: menuOpen[index] ? 'neutral.200' : 'neutral.300',
+                    fontWeight: menuOpen[index] && 'fontWeightBold',
+                    justifyContent: 'flex-start',
+                    px: 3,
+                    textAlign: 'left',
+                    textTransform: 'none',
+                    width: '100%',
+                    '& .MuiButton-startIcon': {
+                      color: menuOpen[index] ? 'secondary.main' : 'neutral.400'
+                    },
+                    '&:hover': {
+                      backgroundColor: 'rgba(255,255,255, 0.2)'
+                    }
+                  }}
+                  onClick={() => toggleNavBarMenu(index)}
+                >
+                  <Box sx={{ flexGrow: 1 }}>
+                    {section.title}
+                  </Box>
+                </Button>
+              </ListItem>
+              <Collapse in={menuOpen[index]} timeout="auto" unmountOnExit>
+                {section.items.map((item) => (
+                  <NavItem
+                    subMenu
+                    key={item.title}
+                    icon={item.icon}
+                    href={item.href}
+                    title={item.title}
+                  />
+                ))}
+              </Collapse>
+            </div>
+          )}
+          </Box>
         <Box sx={{ flexGrow: 1 }}>
           {items.map((item) => (
             <NavItem

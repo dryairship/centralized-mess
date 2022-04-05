@@ -19,7 +19,7 @@ export const AddMenusDetails = (props) => {
   return (
     <Card sx={{border: 1}}>
       <CardHeader
-        title="Profile"
+        title={"#"+(props.index+1)}
         action={
           <IconButton
             aria-label="delete"
