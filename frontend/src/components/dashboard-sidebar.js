@@ -42,6 +42,22 @@ import { NavItem } from './nav-item';
 
 const sections = [
   {
+    title: "Real-Time Management",
+    icon: (<ListAltIcon fontSize="small" />),
+    items: [
+      {
+        href: '/manager/student-entry',
+        icon: (<AddBoxIcon fontSize="small" />),
+        title: 'Student Entry'
+      },
+      {
+        href: '/manager/manage-menus',
+        icon: (<ListIcon fontSize="small" />),
+        title: 'View Extras Requests'
+      },
+    ]
+  },
+  {
     title: "Menu Management",
     icon: (<ListAltIcon fontSize="small" />),
     items: [
@@ -151,7 +167,7 @@ const items = [
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
-  const [menuOpen, setMenuOpen] = useState([false]);
+  const [menuOpen, setMenuOpen] = useState(sections.map(() => false));
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
