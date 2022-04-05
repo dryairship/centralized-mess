@@ -16,19 +16,16 @@ import {
   IconButton,
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-export const ManageMenusResults = ({ menus, appliedFilter, onDelete, ...rest }) => {
+export const ManageExtrasResults = ({ extras, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-  const [filteredMenus, setFilteredMenus] = useState(menus);
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
 
-  useEffect(() => {
-    setFilteredMenus(menus.filter((menu) => appliedFilter === 'All' || appliedFilter === menu.menu_time));
-  }, [appliedFilter]);
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
@@ -41,40 +38,41 @@ export const ManageMenusResults = ({ menus, appliedFilter, onDelete, ...rest }) 
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell width="23%">
+                <TableCell width="40%">
                   Name
                 </TableCell>
                 <TableCell width="20%">
-                  Time
+                  Price Per Item
                 </TableCell>
-                <TableCell width="47%">
-                  Contents
-                </TableCell>
-                <TableCell width="10%">
-                  Action
+                <TableCell width="20%">
+                  Actions
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {filteredMenus.slice(page*limit, (page+1)*limit).map((menu) => (
+              {extras.slice(page*limit, (page+1)*limit).map((item) => (
                 <TableRow
                   hover
-                  key={menu.menu_id}
+                  key={item.item_id}
                 >
                   <TableCell>
-                    {menu.menu_name}
+                    {item.item_name}
                   </TableCell>
                   <TableCell>
-                    {menu.menu_time}
-                  </TableCell>
-                  <TableCell>
-                    {menu.contents}
+                    {item.cost_per_item}
                   </TableCell>
                   <TableCell>
                     <IconButton
+                      aria-label="edit"
+                      color="info"
+                      onClick={() => onEdit(item)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
                       aria-label="delete"
                       color="error"
-                      onClick={() => onDelete(menu)}
+                      onClick={() => onDelete(item)}
                     >
                       <DeleteIcon />
                     </IconButton>
@@ -87,7 +85,7 @@ export const ManageMenusResults = ({ menus, appliedFilter, onDelete, ...rest }) 
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={filteredMenus.length}
+        count={extras.length}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
@@ -98,6 +96,6 @@ export const ManageMenusResults = ({ menus, appliedFilter, onDelete, ...rest }) 
   );
 };
 
-ManageMenusResults.propTypes = {
-  menus: PropTypes.array.isRequired
+ManageExtrasResults.propTypes = {
+  extras: PropTypes.array.isRequired
 };

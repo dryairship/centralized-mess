@@ -33,6 +33,7 @@ import { XCircle as XCircleIcon } from '../icons/x-circle';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ListIcon from '@mui/icons-material/List';
+import AddCardIcon from '@mui/icons-material/AddCard';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
@@ -50,6 +51,11 @@ const sections = [
         href: '/manager/manage-menus',
         icon: (<ListIcon fontSize="small" />),
         title: 'Manage Menus'
+      },
+      {
+        href: '/manager/manage-extras',
+        icon: (<AddCardIcon fontSize="small" />),
+        title: 'Manage Extras'
       },
     ]
   }
