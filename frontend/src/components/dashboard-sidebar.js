@@ -51,7 +51,7 @@ const sections = [
         title: 'Student Entry'
       },
       {
-        href: '/manager/manage-menus',
+        href: '/manager/view-extras-requests',
         icon: (<ListIcon fontSize="small" />),
         title: 'View Extras Requests'
       },

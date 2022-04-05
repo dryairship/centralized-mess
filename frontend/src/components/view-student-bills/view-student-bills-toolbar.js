@@ -52,6 +52,7 @@ export const ViewStudentBillsToolbar = ({onSubmit, studentBills, ...props}) => {
               <Grid item xs="auto">
                 <TextField
                   fullWidth
+                  autoFocus
                   label="Enter Student's Roll Number"
                   name="studentRoll"
                   onChange={handleChange}

@@ -155,7 +155,7 @@ END IF //
 IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'extra_items_bills') THEN
     BEGIN
         CREATE TABLE extra_items_bills (
-            bill_id     INT         NOT NULL    AUTO_INCREMENT  UNIQUE,
+            time_id     BIGINT      NOT NULL    UNIQUE,
             roll_number VARCHAR(10) NOT NULL,
             mess_id     INT         NOT NULL,
             meal_date   DATE        NOT NULL,
@@ -164,7 +164,7 @@ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = 'extra
             quantity    INT         NOT NULL,
             claimed     BOOLEAN     NOT NULL    DEFAULT false,
             cost        REAL,
-            PRIMARY KEY (bill_id),
+            PRIMARY KEY (time_id),
             FOREIGN KEY (roll_number) REFERENCES students(roll_number),
             FOREIGN KEY (mess_id) REFERENCES messes(mess_id),
             FOREIGN KEY (item_id) REFERENCES extra_items(item_id)
