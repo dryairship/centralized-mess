@@ -34,8 +34,9 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ListIcon from '@mui/icons-material/List';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
-import AddCardIcon from '@mui/icons-material/AddCard';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
@@ -74,6 +75,27 @@ const sections = [
         href: '/manager/manage-meals',
         icon: (<ListIcon fontSize="small" />),
         title: 'Upcoming Meals'
+      },
+    ],
+  },
+  {
+    title: "Finance Management",
+    icon: (<CurrencyRupeeIcon fontSize="small" />),
+    items: [
+      {
+        href: '/manager/manage-meal-costs',
+        icon: (<LocalDiningIcon fontSize="small" />),
+        title: 'Manage Meal Costs'
+      },
+      {
+        href: '/manager/view-extras-costs',
+        icon: (<FastfoodIcon fontSize="small" />),
+        title: 'View Extras Costs'
+      },
+      {
+        href: '/manager/view-student-bills',
+        icon: (<PersonSearchIcon fontSize="small" />),
+        title: 'View Student Bills'
       },
     ],
   }
