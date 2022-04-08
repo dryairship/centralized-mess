@@ -1,0 +1,26 @@
+{
+  "name": "centralized-mess-mock-db",
+  "version": "1.0.0",
+  "description": "To insert mock data in the database",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dryairship/centralized-mess.git"
+  },
+  "author": "Priydarshi Singh, Saumya Singh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dryairship/centralized-mess/issues"
+  },
+  "homepage": "https://github.com/dryairship/centralized-mess#readme",
+  "dependencies": {
+    "@faker-js/faker": "^6.1.2",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.0",
+    "mysql": "^2.18.1"
+  }
+}

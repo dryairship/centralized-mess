@@ -1,0 +1,33 @@
+{
+    "Breakfast": [
+        "Pav Bhaji, Tea/Milk/Boiled Egg, Sprouts, Bread with Butter/Jam/Cornflakes, Dalia",
+        "Uttapam, Sambhar, Nariyal Chutney, Tea/Milk/Boiled Egg, Sprouts, Bread with Butter/Jam/Cornflakes, Dalia",
+        "Idli Vada, Sambhar, Nariyal Chutney, Tea/Milk/Boiled Egg, Sprouts, Bread with Butter/Jam/Cornflakes, Dalia",
+        "Vada Pav, Tomato ketchup, Tea/Milk/Boiled Egg, Sprouts, Bread with Butter/Jam/Cornflakes, Dalia",
+        "Khasta kachori, Matar ki Sabji, Tea/Milk/Boiled Egg, Sprouts, Bread with Butter/Jam/Cornflakes, Dalia",
+        "Aloo/Paneer/Gobhi Paratha, Tea/Milk/Boiled Egg, Sprouts, Bread with Butter/Jam/Cornflakes, Dalia",
+        "Halwa-chana, Puri, Aloo Matar Sabji, Tea/Milk/Boiled Egg, Sprouts, Bread with Butter/Jam/Cornflakes, Dalia",
+        "Dosa, Sambhar, nariyal Chutney, Tea/Milk/Boiled Egg, Sprouts, Bread with Butter/Jam/Cornflakes, Dalia",
+        "Poha, Jalebi, Curd, Tea/Milk/Boiled Egg, Sprouts, Bread with Butter/Jam/Cornflakes, Dalia"
+    ],
+    "Lunch": [
+        "Lauki, Rajma, Curd/Fruits/Lassi, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Aloo Bhindi, Arhar Dal, Jeera Rice, Curd/Fruits/Lassi, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Baigan Masala, Chana Dal, Curd/Fruits/Lassi, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Katahal, Masoor Dal, Curd/Fruits/Lassi, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Aloo Chana, Moong Dal, Curd/Fruits/Lassi, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Dum Aloo, Moong Dal Khari, Curd/Fruits/Lassi, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Aloo Palak, Mix Dal, Tahri, Curd/Fruits/Lassi, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Paratha (Aloo, Mix Veg, Mooli), Paneer Paratha, Curd/Fruits/Lassi, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Methi Malai Paneer, Curd/Fruits/Lassi, Chapatti (Plain & Butter), Rice, Salad, Pickles"
+    ],
+    "Dinner": [
+        "Aloo Matar, Puri, Chana Dal, Sewayi, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Matar Paneer, Lal Masoor Dal, Paratha, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Mix Veg, Arhar Dal Fry, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Chhola, Bhatura, Imarti-Rabdi/Gulab-jamun, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Veg Kofta, Chana Dal Tadka, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Aloo Soyabean, Dalk Makhani, French Fry, Chapatti (Plain & Butter), Rice, Salad, Pickles",
+        "Kadhai Paneer / Malai Kofta / Chicken Curry, Missi Roti, Chapatti (Plain & Butter), Rice, Salad, Pickles"
+    ]
+}
