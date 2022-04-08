@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { useEffect } from 'react';
 import { CacheProvider } from '@emotion/react';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -14,11 +15,25 @@ const App = (props) => {
 
   const getLayout = Component.getLayout ?? ((page) => page);
 
+  useEffect(() => {
+    const sessionType = localStorage.getItem('sessionType');
+    console.log(sessionType, window.location.pathname);
+    if (window.location.pathname.startsWith("/manager/") && sessionType != "Manager") {
+      window.location.href = "/managerLogin";
+    } else if (window.location.pathname.startsWith("/student/") && sessionType != "Student") {
+      window.location.href = "/";
+    } else if (window.location.pathname == "/" && sessionType == "Manager") {
+      window.location.href = "/manager/dashboard";
+    } else if (window.location.pathname == "/" && sessionType == "Student") {
+      window.location.href = "/student/dashboard";
+    }
+  }, []);
+
   return (
     <CacheProvider value={emotionCache}>
       <Head>
         <title>
-          Material Kit Pro
+          Centralized Mess
         </title>
         <meta
           name="viewport"

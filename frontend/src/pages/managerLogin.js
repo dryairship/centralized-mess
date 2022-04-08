@@ -21,14 +21,14 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const response = await fetch('/api/auth/studentLogin', {
+    const response = await fetch('/api/auth/managerLogin', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        rollNumber: data.get('rollNumber'),
+        pfNumber: data.get('pfNumber'),
         password: data.get('password'),
       }),
     });
@@ -36,12 +36,12 @@ const Login = () => {
       const content = await response.json();
       localStorage.clear();
       localStorage.setItem('sessionType', content.type);
-      localStorage.setItem('rollNumber', content.rollNumber);
+      localStorage.setItem('pfNumber', content.pfNumber);
       localStorage.setItem('name', content.name);
       localStorage.setItem('phoneNumber', content.phoneNumber);
-      localStorage.setItem('address', content.address);
+      localStorage.setItem('messId', content.messId);
       localStorage.setItem('email', content.email);
-      window.location.href = '/student/dashboard';
+      window.location.href = '/manager/dashboard';
     } else if (response.status == 500) {
       setAlertData({
         severity: 'error',
@@ -61,7 +61,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | Centralized Mess</title>
+        <title>Manager Login | Centralized Mess</title>
       </Head>
       <Box
         component="main"
@@ -104,11 +104,11 @@ const Login = () => {
               <Typography gutterBottom component="h1" variant="h4">
                 Centralized Mess @ IITK
               </Typography>
-              <Avatar  sx={{ m: 1, bgcolor: 'secondary.main' }}>
+              <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
                 <LockOutlinedIcon />
               </Avatar>
               <Typography gutterBottom component="h1" variant="h5">
-                Student Sign In
+                Manager Sign In
               </Typography>
               {alertData.visible && 
                 <Alert severity={alertData.severity} variant="filled">{alertData.message}</Alert>
@@ -118,10 +118,10 @@ const Login = () => {
                   margin="normal"
                   required
                   fullWidth
-                  id="rollNumber"
-                  label="Roll Number"
-                  name="rollNumber"
-                  autoComplete="rollNumber"
+                  id="pfNumber"
+                  label="PF Number"
+                  name="pfNumber"
+                  autoComplete="pfNumber"
                   autoFocus
                 />
                 <TextField
@@ -144,8 +144,8 @@ const Login = () => {
                 </Button>
                 <Grid container>
                   <Grid item xs>
-                    <Link href="/managerLogin" variant="body2">
-                      Login as a Manager
+                    <Link href="/" variant="body2">
+                      Login as a Student
                     </Link>
                   </Grid>
                 </Grid>
