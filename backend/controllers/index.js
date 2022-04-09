@@ -4,6 +4,7 @@ import testControllers from './test.js';
 import authControllers from './auth.js';
 import studentEntryControllers from './manager/student-entry.js';
 import manageMenusControllers from './manager/manage-menus.js';
+import manageExtrasControllers from './manager/manage-extras.js';
 
 const routes = express.Router();
 
@@ -19,6 +20,8 @@ managerRoutes.use(middlewares.ensureManagerLoggedIn);
 managerRoutes.post('/getStudentInfo', studentEntryControllers.handleGetStudentInfo);
 managerRoutes.post('/addStudentEntry', studentEntryControllers.handleAddStudentEntry);
 managerRoutes.get('/getMessMenus', manageMenusControllers.handleGetMessMenus);
+managerRoutes.get('/getMessExtras', manageExtrasControllers.handleGetMessExtras);
+managerRoutes.post('/addMenus', manageMenusControllers.handleAddMenus);
 
 routes.use('/test', testRoutes);
 routes.use('/auth', authRoutes);

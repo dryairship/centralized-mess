@@ -25,7 +25,6 @@ export const AddMenusDetails = (props) => {
     });
   }
 
-
   const openExtrasDialog = () => {
     setAddExtraDialogOpen(true);
   }
@@ -39,6 +38,7 @@ export const AddMenusDetails = (props) => {
                             .map((item) => item.item_name + " (₹" + item.cost_per_item + ")");
     setExtrasText(addedExtrasTexts.join(", "));
     closeExtrasDialog();
+    props.onChange(props.index, 'extras', props.availableExtras.map((item) => item.item_id).filter((itemId) => selectedExtrasMap[itemId]));
   }
 
   const handleChange = (event) => {

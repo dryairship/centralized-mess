@@ -4,12 +4,14 @@ import {
   Button,
   Card,
   Grid,
+  Alert,
 } from '@mui/material';
 import { AddMenusDetails } from './add-menus-details';
 
 export const AddMenus = (props) => {
 
   const [menus, setMenus] = useState([{menuName: '', menuTime:'Breakfast', menuContent:'', extras: []}]);
+  const [alertData, setAlertData] = useState({severity: 'error', message: 'Meow', visible: false});
 
   const onChildChange = (index, field, value) => {
     setMenus([
@@ -37,11 +39,31 @@ export const AddMenus = (props) => {
     ]);
   }
 
-  const onSaveMenus = () => {
-    console.log(menus);
+  const onSaveMenus = async () => {
+    const response = await fetch('/api/manager/addMenus', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(menus),
+    });
+    const data = await response.json();
+    setAlertData({
+      severity: response.status == 200 ? 'success' : 'error',
+      message: data.message,
+      visible: true,
+    });
+    if(response.status == 200) {
+      setMenus([]);
+    }
   }
 
   return (
+    <>
+    {alertData.visible && 
+      <Alert sx={{marginBottom: 2}} severity={alertData.severity} variant="filled">{alertData.message}</Alert>
+    }
     <form
       autoComplete="off"
       noValidate
@@ -86,5 +108,6 @@ export const AddMenus = (props) => {
         </Box>
       </Card>
     </form>
+    </>
   );
 };

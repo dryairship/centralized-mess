@@ -17,6 +17,24 @@ const findMenusWithMessId = (messId) => {
     });
 }
 
+const insertMenus = (menusData) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'INSERT INTO menus (menu_name, mess_id, menu_time, contents) VALUES ?',
+            [menusData],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve (-1);
+                } else {
+                    resolve (result.insertId);
+                }
+            }
+        );
+    });
+}
+
 export default {
     findMenusWithMessId,
+    insertMenus,
 }
