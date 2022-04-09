@@ -14,6 +14,7 @@ import InfiniteCalendar, {
   withMultipleDates,
 } from '@appannie/react-infinite-calendar';
 import '@appannie/react-infinite-calendar/styles.css';
+import { useEffect } from 'react';
 
 const mealTimes = ['Breakfast', 'Lunch', 'Dinner'];
 
@@ -24,6 +25,7 @@ export const AddMealsDetails = (props) => {
   };
 
   const handleMenuChange = (event) => {
+    console.log("handleMenuCHange in add-meal-details", props.index, event.target.name, event.target.value);
     props.onChange(props.index, "mealMenu", JSON.parse(event.target.value));
   };
 
@@ -31,6 +33,12 @@ export const AddMealsDetails = (props) => {
     let newDates = defaultMultipleDateInterpolation(selectedDate, props.meal.mealDates);
     props.onChange(props.index, "mealDates", newDates);
   }
+
+  useEffect(() => {
+    if(props.availableMenus && props.availableMenus.length > 0) {
+      //props.onChange(props.index, "mealMenu", props.availableMenus.filter((menu) => props.meal.mealTime===menu.menu_time)[0]);
+    }
+  }, [props.availableMenus]);
 
   return (
     <Card sx={{border: 1}}>
@@ -82,13 +90,20 @@ export const AddMealsDetails = (props) => {
                 required
                 select
                 SelectProps={{ native: true }}
-                value={props.meal.mealMenu}
                 variant="outlined"
               >
+                <option
+                    key={-1}
+                    value={""}
+                    selected={props.meal.mealMenu && props.meal.mealMenu.menu_id == -1}
+                  >
+                    {}
+                  </option>
                 {props.availableMenus.filter((menu) => props.meal.mealTime===menu.menu_time).map((menu) => (
                   <option
                     key={menu.menu_id}
                     value={JSON.stringify(menu)}
+                    selected={props.meal.mealMenu && props.meal.mealMenu.menu_id == menu.menu_id}
                   >
                     {menu.menu_name}
                   </option>
@@ -122,10 +137,9 @@ export const AddMealsDetails = (props) => {
             <Grid item container md={6}>
               <TextField
                 fullWidth
-                label="Meal Content"
                 name="mealContent"
                 required
-                InputProps={{readOnly: true}}
+                InputProps={{ readOnly: false}}
                 multiline
                 minRows={8}
                 value={props.meal.mealMenu ? props.meal.mealMenu.contents : ""}

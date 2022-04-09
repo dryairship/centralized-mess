@@ -1,6 +1,9 @@
+const dateToSQLString = (date) => {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+}
+
 const getCurrentDate = () => {
-    const currentDate = new Date();
-    return `${currentDate.getFullYear()}-${currentDate.getMonth() + 1}-${currentDate.getDate()}`;
+    return dateToSQLString(new Date());
 }
 
 const isBreakfastTime = (date) => {
@@ -26,4 +29,5 @@ const getCurrentMealTime = () => {
 export default {
     getCurrentDate,
     getCurrentMealTime,
+    dateToSQLString,
 };

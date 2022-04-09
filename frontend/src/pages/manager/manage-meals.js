@@ -1,13 +1,14 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Container } from '@mui/material';
 import { ManageMealsResults } from '../../components/manage-meals/manage-meals-results';
 import { ManageMealsToolbar } from '../../components/manage-meals/manage-meals-toolbar';
 import { DashboardLayout } from '../../components/dashboard-layout';
-import { meals } from '../../__mocks__/meals';
+import { meals as mockMeals } from '../../__mocks__/meals';
 
 const ManageMeals = () => {
   const [filter, setFilter] = useState('All');
+  const [meals, setMeals] = useState([]);
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
@@ -16,6 +17,11 @@ const ManageMeals = () => {
   const onDeleteMeal = (meal) => {
     console.log(meal);
   }
+  useEffect(async () => {
+    const response = await fetch('/api/manager/getMessUpcomingMeals');
+    const fetchedMeals = await response.json();
+    setMeals(fetchedMeals);
+  }, []);
 
   return (
     <>

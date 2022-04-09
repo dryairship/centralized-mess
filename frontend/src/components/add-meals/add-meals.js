@@ -4,12 +4,14 @@ import {
   Button,
   Card,
   Grid,
+  Alert,
 } from '@mui/material';
 import { AddMealsDetails } from './add-meals-details';
 
 export const AddMeals = (props) => {
 
-  const [meals, setMeals] = useState([{mealTime:'Breakfast', mealContent:'', mealDates:[]}]);
+  const [meals, setMeals] = useState([{mealTime:'Breakfast', mealMenu:{}, mealDates:[]}]);
+  const [alertData, setAlertData] = useState({severity: 'error', message: 'Meow', visible: false});
 
   const onChildChange = (index, field, value) => {
     console.log(index, field);
@@ -35,15 +37,44 @@ export const AddMeals = (props) => {
   const onAddAnotherMeal = () => {
     setMeals([
       ...meals,
-      {mealTime:'Breakfast', mealContent:'', mealDates: []},
+      {mealTime:'Breakfast', mealMenu:{}, mealDates: []},
     ]);
   }
 
-  const onSaveMeals = () => {
-    console.log(meals);
+  const dateToSQLString = (date) => {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+}
+
+  const onSaveMeals = async () => {
+    const mealsData = meals.map((meal) => { return {
+      menuId: meal.mealMenu.menu_id,
+      time: meal.mealTime,
+      dates: meal.mealDates.map(dateToSQLString),
+    };});
+    const response = await fetch('/api/manager/addMeals', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(mealsData),
+    });
+    const data = await response.json();
+    setAlertData({
+      severity: response.status == 200 ? 'success' : 'error',
+      message: data.message,
+      visible: true,
+    });
+    if(response.status == 200) {
+      setMeals([]);
+    }
   }
 
   return (
+    <>
+    {alertData.visible && 
+      <Alert sx={{marginBottom: 2}} severity={alertData.severity} variant="filled">{alertData.message}</Alert>
+    }
     <form
       autoComplete="off"
       noValidate
@@ -88,5 +119,6 @@ export const AddMeals = (props) => {
         </Box>
       </Card>
     </form>
+    </>
   );
 };

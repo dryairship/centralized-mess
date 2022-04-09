@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS menus (
     mess_id     INT             NOT NULL,
     menu_time   ENUM('Breakfast', 'Lunch', 'Dinner')    NOT NULL,
     contents    VARCHAR(500)    NOT NULL,
+    deleted     BOOLEAN         NOT NULL    DEFAULT false,
     PRIMARY KEY (mess_id, menu_id),
     FOREIGN KEY (mess_id) REFERENCES messes(mess_id)
 );
@@ -49,6 +50,7 @@ CREATE TABLE IF NOT EXISTS extra_items (
     item_name       VARCHAR(50) NOT NULL,
     mess_id         INT         NOT NULL,
     cost_per_item   REAL        NOT NULL,
+    deleted         BOOLEAN     NOT NULL    DEFAULT false,
     PRIMARY KEY (mess_id, item_id),
     FOREIGN KEY (mess_id) REFERENCES messes(mess_id)
 );

@@ -3,7 +3,7 @@ import db from './db.js';
 const findExtraItemsWithMessId = (messId) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM extra_items WHERE mess_id = ?',
+            'SELECT * FROM extra_items WHERE mess_id = ? and deleted = false',
             [messId],
             (err, result) => {
                 if (err) {

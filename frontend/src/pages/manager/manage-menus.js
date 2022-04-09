@@ -22,7 +22,6 @@ const ManageMenus = () => {
     const response = await fetch('/api/manager/getMessMenus');
     const fetchedMenus = await response.json();
     setMenus(fetchedMenus);
-    setFilter('All');
   }, []);
 
   return (

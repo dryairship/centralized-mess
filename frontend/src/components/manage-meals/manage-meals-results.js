@@ -28,7 +28,8 @@ export const ManageMealsResults = ({ meals, appliedFilter, onDelete, ...rest }) 
 
   useEffect(() => {
     setFilteredMeals(meals.filter((meal) => appliedFilter === 'All' || appliedFilter === meal.meal_time));
-  }, [appliedFilter]);
+    setPage(0);
+  }, [appliedFilter, meals]);
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
@@ -62,7 +63,7 @@ export const ManageMealsResults = ({ meals, appliedFilter, onDelete, ...rest }) 
                   key={i}
                 >
                   <TableCell>
-                    {meal.meal_date}
+                    {meal.meal_date.substring(0, meal.meal_date.indexOf("T"))}
                   </TableCell>
                   <TableCell>
                     {meal.meal_time}

@@ -1,10 +1,10 @@
 import db from './db.js';
 
-const findMenusWithMessId = (messId) => {
+const findUpcomingMealsWithMessId = (messId, startDate) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM menus WHERE mess_id = ? and deleted = false',
-            [messId],
+            'SELECT * FROM meals natural join menus WHERE mess_id = ? and meal_date > ?',
+            [messId, startDate],
             (err, result) => {
                 if (err) {
                     console.log(err);
@@ -17,17 +17,17 @@ const findMenusWithMessId = (messId) => {
     });
 }
 
-const insertMenus = (menusData) => {
+const insertMeals = (mealsData) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'INSERT INTO menus (menu_name, mess_id, menu_time, contents) VALUES ?',
-            [menusData],
+            'INSERT INTO meals (meal_date, mess_id, menu_id, meal_time) VALUES ?',
+            [mealsData],
             (err, result) => {
                 if (err) {
                     console.log(err);
-                    resolve (-1);
+                    resolve (false);
                 } else {
-                    resolve (result.insertId);
+                    resolve (true);
                 }
             }
         );
@@ -35,6 +35,6 @@ const insertMenus = (menusData) => {
 }
 
 export default {
-    findMenusWithMessId,
-    insertMenus,
-}
+    findUpcomingMealsWithMessId,
+    insertMeals,
+};
