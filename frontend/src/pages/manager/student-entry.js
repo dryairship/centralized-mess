@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { useState, useEffect } from 'react';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography, Alert } from '@mui/material';
 import { StudentEntry } from '../../components/student-entry/student-entry';
 import { StudentEntryDetails } from '../../components/student-entry/student-entry-details';
 import { DashboardLayout } from '../../components/dashboard-layout';
@@ -10,20 +10,55 @@ const StudentEntryPage = () => {
   
   const [studentData, setStudentData] = useState(null);
   const [nonce, setNonce] = useState(0);
+  const [alertData, setAlertData] = useState({severity: 'error', message: 'Meow', visible: false});
 
-  const handleStudentIDSubmit = (studentId) => {
+  const handleStudentIDSubmit = async (studentId) => {
     let roll = "";
     if(studentId.startsWith("S")) {
       roll = studentId.substring(1,7);
     } else {
       roll = studentId;
     }
-    console.log(roll);
-    setStudentData(mockData);
+    const response = await fetch('/api/manager/getStudentInfo', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rollNumber: roll,
+      }),
+    });
+    const data = await response.json();
+    if (response.status == 200) {
+      setStudentData(data);
+      setAlertData({...alertData, visible: false});
+    } else {
+      setAlertData({
+        severity: 'error',
+        message: data.message,
+        visible: true,
+      });
+    }
   }
 
-  const handleAddEntry = () => {
-    console.log(studentData);
+  const handleAddEntry = async () => {
+    const response = await fetch('/api/manager/addStudentEntry', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rollNumber: studentData.rollNumber,
+      }),
+    });
+    const data = await response.json();
+    setAlertData({
+      severity: response.status == 200 ? 'success' : 'error',
+      message: data.message,
+      visible: true,
+    });
     setNonce(Math.random());
     setStudentData(null);
   }
@@ -49,6 +84,9 @@ const StudentEntryPage = () => {
           >
             Student Entry
           </Typography>
+          {alertData.visible && 
+            <Alert severity={alertData.severity} variant="filled">{alertData.message}</Alert>
+          }
           <Grid
             container
             spacing={3}

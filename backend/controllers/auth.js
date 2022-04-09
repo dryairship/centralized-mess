@@ -1,12 +1,12 @@
 import bcrypt from 'bcrypt';
-import managerTable from '../db/manager.js';
-import studentTable from '../db/student.js';
+import managersTable from '../db/managers.js';
+import studentsTable from '../db/students.js';
 
 const handleManagerLogin = async (req, res) => {
     const pfNumber = req.body.pfNumber;
     const password = req.body.password;
 
-    let result = await managerTable.findManagerWithPFNumber(pfNumber);
+    let result = await managersTable.findManagerWithPFNumber(pfNumber);
     if (result.length != 1) {
         res.status(400).json({
             message: "Invalid PF Number",
@@ -37,7 +37,7 @@ const handleStudentLogin = async (req, res) => {
     const rollNumber = req.body.rollNumber;
     const password = req.body.password;
 
-    let result = await studentTable.findStudentWithRollNumber(rollNumber);
+    let result = await studentsTable.findStudentWithRollNumber(rollNumber);
     if (result.length != 1) {
         res.status(400).json({
             message: "Invalid Roll Number",

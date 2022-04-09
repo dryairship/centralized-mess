@@ -31,7 +31,7 @@ export const StudentEntry = ({studentData, onAddEntry}) => {
           }}
         >
           <Avatar
-            src={`https://oa.cc.iitk.ac.in/Oa/Jsp/Photo/${studentData.roll_number}_0.jpg`}
+            src={`https://oa.cc.iitk.ac.in/Oa/Jsp/Photo/${studentData.rollNumber}_0.jpg`}
             alt={studentData.name}
             sx={{
               height: 150,
@@ -51,14 +51,14 @@ export const StudentEntry = ({studentData, onAddEntry}) => {
             gutterBottom
             variant="h6"
           >
-            {studentData.roll_number}
+            {studentData.rollNumber}
           </Typography>
           <Typography
             color="textSecondary"
             variant="h6"
             gutterBottom
           >
-            {`${studentData.phone_number} • ${studentData.email}`}
+            {`${studentData.phoneNumber} • ${studentData.email}`}
           </Typography>
           <Typography
             color="textSecondary"
