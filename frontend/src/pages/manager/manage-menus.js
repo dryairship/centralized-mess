@@ -1,13 +1,14 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Container } from '@mui/material';
 import { ManageMenusResults } from '../../components/manage-menus/manage-menus-results';
 import { ManageMenusToolbar } from '../../components/manage-menus/manage-menus-toolbar';
 import { DashboardLayout } from '../../components/dashboard-layout';
-import { menus } from '../../__mocks__/menus';
+import { menus as mockMenus} from '../../__mocks__/menus';
 
 const ManageMenus = () => {
   const [filter, setFilter] = useState('All');
+  const [menus, setMenus] = useState([]);
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
@@ -16,6 +17,13 @@ const ManageMenus = () => {
   const onDeleteMenu = (menu) => {
     console.log(menu);
   }
+
+  useEffect(async () => {
+    const response = await fetch('/api/manager/getMessMenus');
+    const fetchedMenus = await response.json();
+    setMenus(fetchedMenus);
+    setFilter('All');
+  }, []);
 
   return (
     <>

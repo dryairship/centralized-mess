@@ -28,7 +28,8 @@ export const ManageMenusResults = ({ menus, appliedFilter, onDelete, ...rest }) 
 
   useEffect(() => {
     setFilteredMenus(menus.filter((menu) => appliedFilter === 'All' || appliedFilter === menu.menu_time));
-  }, [appliedFilter]);
+    setPage(0);
+  }, [appliedFilter, menus]);
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
@@ -50,9 +51,6 @@ export const ManageMenusResults = ({ menus, appliedFilter, onDelete, ...rest }) 
                 <TableCell width="47%">
                   Contents
                 </TableCell>
-                <TableCell width="10%">
-                  Action
-                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -69,15 +67,6 @@ export const ManageMenusResults = ({ menus, appliedFilter, onDelete, ...rest }) 
                   </TableCell>
                   <TableCell>
                     {menu.contents}
-                  </TableCell>
-                  <TableCell>
-                    <IconButton
-                      aria-label="delete"
-                      color="error"
-                      onClick={() => onDelete(menu)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}

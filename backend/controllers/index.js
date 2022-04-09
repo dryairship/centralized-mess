@@ -3,6 +3,7 @@ import middlewares from './middlewares.js';
 import testControllers from './test.js';
 import authControllers from './auth.js';
 import studentEntryControllers from './manager/student-entry.js';
+import manageMenusControllers from './manager/manage-menus.js';
 
 const routes = express.Router();
 
@@ -17,6 +18,7 @@ const managerRoutes = express.Router();
 managerRoutes.use(middlewares.ensureManagerLoggedIn);
 managerRoutes.post('/getStudentInfo', studentEntryControllers.handleGetStudentInfo);
 managerRoutes.post('/addStudentEntry', studentEntryControllers.handleAddStudentEntry);
+managerRoutes.get('/getMessMenus', manageMenusControllers.handleGetMessMenus);
 
 routes.use('/test', testRoutes);
 routes.use('/auth', authRoutes);
