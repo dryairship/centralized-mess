@@ -1,20 +1,28 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Container } from '@mui/material';
 import { ViewExtrasRequestsResults } from '../../components/view-extras-requests/view-extras-requests-results';
 import { ViewExtrasRequestsToolbar } from '../../components/view-extras-requests/view-extras-requests-toolbar';
 import { DashboardLayout } from '../../components/dashboard-layout';
-import { extrasRequests } from '../../__mocks__/extras-requests';
+import { extrasRequests as mockRequests } from '../../__mocks__/extras-requests';
 
 const ViewExtrasRequests = () => {
+  const [nonce, setNonce] = useState(0);
   const [filter, setFilter] = useState('All');
+  const [extrasRequests, setExtrasRequests] = useState([]);
+
+  useEffect(async () => {
+    const response = await fetch('/api/manager/getExtrasRequests');
+    const fetchedRequests = await response.json();
+    setExtrasRequests(fetchedRequests);
+  }, [nonce]);
 
   const handleFilterChange = (event) => {
     setFilter(event.target.value);
   }
 
   const handleRefresh = () => {
-    console.log("Refreshing");
+    setNonce(Math.random());
   }
 
   const onDeleteRequest = (request) => {

@@ -39,7 +39,8 @@ export const ViewExtrasRequestsResults = ({ extrasRequests, appliedFilter, onDel
 
   useEffect(() => {
     setFilteredMenus(extrasRequests.filter((request) => appliedFilter === 'All' || appliedFilter === request.meal_time));
-  }, [appliedFilter]);
+    setPage(0);
+  }, [appliedFilter, extrasRequests]);
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
@@ -80,7 +81,7 @@ export const ViewExtrasRequestsResults = ({ extrasRequests, appliedFilter, onDel
                   </TableCell>
                   <TableCell>
                     <Box
-                     onMouseEnter={(e) => handleHover(e, request)}
+                     onClick={(e) => handleHover(e, request)}
                       sx={{
                         alignItems: 'center',
                         display: 'flex'
@@ -133,36 +134,38 @@ export const ViewExtrasRequestsResults = ({ extrasRequests, appliedFilter, onDel
         open={popoverData.show}
         anchorEl={popoverData.anchor}
         onClose={handlePopoverClose}
-
+        elevation={24}
         align="center"
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',
         }}
       >
-        <Avatar
-          src={`https://oa.cc.iitk.ac.in/Oa/Jsp/Photo/${popoverData.request.roll_number}_0.jpg`}
-          alt={popoverData.request.name}
-          sx={{
-            height: 150,
-            mb: 2,
-            width: 150
-          }}
-        />
-        <Typography
-          color="textPrimary"
-          align="center"
-          variant="h5"
-        >
-          {popoverData.request.name}
-        </Typography>
-        <Typography
-          color="textPrimary"
-          align="center"
-          variant="h6"
-        >
-          {popoverData.request.roll_number}
-        </Typography>
+        <Box border={"1px solid red"} borderRadius={1} padding={3}>
+          <Avatar
+            src={`https://oa.cc.iitk.ac.in/Oa/Jsp/Photo/${popoverData.request.roll_number}_0.jpg`}
+            alt={popoverData.request.name}
+            sx={{
+              height: 150,
+              mb: 2,
+              width: 150
+            }}
+          />
+          <Typography
+            color="textPrimary"
+            align="center"
+            variant="h5"
+          >
+            {popoverData.request.name}
+          </Typography>
+          <Typography
+            color="textPrimary"
+            align="center"
+            variant="h6"
+          >
+            {popoverData.request.roll_number}
+          </Typography>
+        </Box>
       </Popover>
       <TablePagination
         component="div"

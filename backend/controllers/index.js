@@ -22,6 +22,7 @@ managerRoutes.post('/getStudentInfo', studentEntryControllers.handleGetStudentIn
 managerRoutes.post('/addStudentEntry', studentEntryControllers.handleAddStudentEntry);
 managerRoutes.get('/getMessMenus', manageMenusControllers.handleGetMessMenus);
 managerRoutes.get('/getMessExtras', manageExtrasControllers.handleGetMessExtras);
+managerRoutes.get('/getExtrasRequests', manageExtrasControllers.handleGetExtrasRequests);
 managerRoutes.post('/addMenus', manageMenusControllers.handleAddMenus);
 managerRoutes.get('/getMessUpcomingMeals', manageMealsControllers.handleGetMessUpcomingMeals);
 managerRoutes.post('/addMeals', manageMealsControllers.handleAddMeals);
