@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export const ViewStudentBillsMeals = ({ studentBills, ...rest }) => {
+export const ViewStudentBillsMeals = ({ studentBills, showMessName, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -36,7 +36,7 @@ export const ViewStudentBillsMeals = ({ studentBills, ...rest }) => {
         gutterBottom
         variant="h5"
       >
-        Meals Bills
+        Basic Meals Bills
       </Typography>
       <PerfectScrollbar>
         <Box>
@@ -46,6 +46,11 @@ export const ViewStudentBillsMeals = ({ studentBills, ...rest }) => {
                 <TableCell width="40%">
                   Date
                 </TableCell>
+                {showMessName && 
+                <TableCell width="40%">
+                  Mess Name
+                </TableCell>
+                }
                 <TableCell width="40%">
                   Meal Time
                 </TableCell>
@@ -55,14 +60,19 @@ export const ViewStudentBillsMeals = ({ studentBills, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {studentBills.meals.slice(page*limit, (page+1)*limit).map((meal, i) => (
+              {studentBills.basicBills.slice(page*limit, (page+1)*limit).map((meal, i) => (
                 <TableRow
                   hover
                   key={i}
                 >
                   <TableCell>
-                    {meal.meal_date}
+                    {meal.meal_date.substring(0, meal.meal_date.indexOf("T"))}
                   </TableCell>
+                  {showMessName &&
+                    <TableCell>
+                      {meal.name}
+                    </TableCell>
+                  }
                   <TableCell>
                     {meal.meal_time}
                   </TableCell>
@@ -77,7 +87,7 @@ export const ViewStudentBillsMeals = ({ studentBills, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={studentBills ? studentBills.meals.length : 0}
+        count={studentBills ? studentBills.basicBills.length : 0}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}

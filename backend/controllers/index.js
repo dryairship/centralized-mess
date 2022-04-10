@@ -6,6 +6,8 @@ import studentEntryControllers from './manager/student-entry.js';
 import manageMenusControllers from './manager/manage-menus.js';
 import manageExtrasControllers from './manager/manage-extras.js';
 import manageMealsControllers from './manager/manage-meals.js';
+import manageStudentBillsControllers from './manager/student-bills.js';
+import studentBillsControllers from './student/student-bills.js';
 
 const routes = express.Router();
 
@@ -26,9 +28,15 @@ managerRoutes.get('/getExtrasRequests', manageExtrasControllers.handleGetExtrasR
 managerRoutes.post('/addMenus', manageMenusControllers.handleAddMenus);
 managerRoutes.get('/getMessUpcomingMeals', manageMealsControllers.handleGetMessUpcomingMeals);
 managerRoutes.post('/addMeals', manageMealsControllers.handleAddMeals);
+managerRoutes.post('/getStudentBills', manageStudentBillsControllers.handleGetStudentBills);
+
+const studentRoutes = express.Router();
+studentRoutes.use(middlewares.ensureStudentLoggedIn);
+studentRoutes.get('/getStudentBills', studentBillsControllers.handleGetStudentBills);
 
 routes.use('/test', testRoutes);
 routes.use('/auth', authRoutes);
 routes.use('/manager', managerRoutes);
+routes.use('/student', studentRoutes);
 
 export default routes;

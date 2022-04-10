@@ -17,6 +17,42 @@ const insertBill = (timeId, rollNumber, messId, mealDate, mealTime) => {
     });
 }
 
+const findBasicMenuBillsForStudent = (rollNumber) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM basic_menu_bills NATURAL JOIN messes WHERE roll_number = ?',
+            [rollNumber],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
+const findBasicMenuBillsForStudentAndMess = (rollNumber, messId) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM basic_menu_bills WHERE roll_number = ? AND mess_id = ?',
+            [rollNumber, messId],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
 export default {
     insertBill,
+    findBasicMenuBillsForStudent,
+    findBasicMenuBillsForStudentAndMess,
 };

@@ -65,7 +65,7 @@ export const ViewStudentBillsToolbar = ({onSubmit, studentBills, ...props}) => {
                 <Button
                   color="primary"
                   variant="contained"
-                  onClick={onSubmit}
+                  onClick={handleSubmit}
                 >
                   View Bills
                 </Button>
@@ -94,8 +94,8 @@ export const ViewStudentBillsToolbar = ({onSubmit, studentBills, ...props}) => {
                 }}
               >
                 <Avatar
-                  src={`https://oa.cc.iitk.ac.in/Oa/Jsp/Photo/${studentBills.roll_number}_0.jpg`}
-                  alt={studentBills.name}
+                  src={`https://oa.cc.iitk.ac.in/Oa/Jsp/Photo/${studentBills.studentInfo.roll_number}_0.jpg`}
+                  alt={studentBills.studentInfo.name}
                   sx={{
                     height: 150,
                     mb: 2,
@@ -117,23 +117,29 @@ export const ViewStudentBillsToolbar = ({onSubmit, studentBills, ...props}) => {
                     gutterBottom
                     variant="h5"
                   >
-                    {studentBills.name}
+                    {`${studentBills.studentInfo.name} • ${studentBills.studentInfo.roll_number}`}
                   </Typography>
                   <Typography
                     color="textSecondary"
                     variant="h6"
                     gutterBottom
                   >
-                    {`${studentBills.phone_number} • ${studentBills.email} • ${studentBills.address}`}
+                    {`${studentBills.studentInfo.phone_number} • ${studentBills.studentInfo.email} • ${studentBills.studentInfo.address}`}
+                  </Typography>
+                  <Typography
+                    color="textPrimary"
+                    variant="h6"
+                    gutterBottom
+                  >
+                    Basic Meals Bill: ₹ {studentBills.basicBills.map((meal) => meal.cost).reduce((a, b) => a + b, 0)} • 
+                    Extras Bill: ₹ {studentBills.extrasBills.map((extra) => extra.cost).reduce((a, b) => a + b, 0)} <br/>
                   </Typography>
                   <Typography
                     color="textPrimary"
                     variant="h6"
                   >
-                    Meals Bill Amount: ₹ {studentBills.meals.map((meal) => meal.cost).reduce((a, b) => a + b, 0)} <br/>
-                    Extras Bill Amount: ₹ {studentBills.extras.map((extra) => extra.cost).reduce((a, b) => a + b, 0)} <br/>
-                    Total Bill Amount: ₹ {studentBills.meals.map((meal) => meal.cost).reduce((a, b) => a + b, 0) + 
-                                          studentBills.extras.map((extra) => extra.cost).reduce((a, b) => a + b, 0)}
+                    Total Bill Amount: ₹ {studentBills.basicBills.map((meal) => meal.cost).reduce((a, b) => a + b, 0) + 
+                                          studentBills.extrasBills.map((extra) => extra.cost).reduce((a, b) => a + b, 0)}
                   </Typography>
                 </Box>
               </Box>

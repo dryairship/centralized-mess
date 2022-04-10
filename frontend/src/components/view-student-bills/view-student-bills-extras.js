@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export const ViewStudentBillsExtras = ({ studentBills, ...rest }) => {
+export const ViewStudentBillsExtras = ({ studentBills, showMessName,...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -48,6 +48,11 @@ export const ViewStudentBillsExtras = ({ studentBills, ...rest }) => {
                 <TableCell width="25%">
                   Date
                 </TableCell>
+                {showMessName && 
+                <TableCell width="25%">
+                  Mess Name
+                </TableCell>
+                }
                 <TableCell width="25%">
                   Meal Time
                 </TableCell>
@@ -63,14 +68,19 @@ export const ViewStudentBillsExtras = ({ studentBills, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {studentBills.extras.slice(page*limit, (page+1)*limit).map((item, i) => (
+              {studentBills.extrasBills.slice(page*limit, (page+1)*limit).map((item, i) => (
                 <TableRow
                   hover
                   key={i}
                 >
                   <TableCell>
-                    {item.meal_date}
+                    {item.meal_date.substring(0, item.meal_date.indexOf("T"))}
                   </TableCell>
+                  {showMessName &&
+                    <TableCell>
+                      {item.name}
+                    </TableCell>
+                  }
                   <TableCell>
                     {item.meal_time}
                   </TableCell>
@@ -91,7 +101,7 @@ export const ViewStudentBillsExtras = ({ studentBills, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={studentBills ? studentBills.extras.length : 0}
+        count={studentBills ? studentBills.extrasBills.length : 0}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
