@@ -3,7 +3,9 @@ import db from './db.js';
 const findUpcomingMealsWithMessId = (messId, startDate) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM meals NATURAL JOIN menus WHERE mess_id = ? AND meal_date > ?',
+            `SELECT *
+             FROM meals NATURAL JOIN menus
+             WHERE mess_id = ? AND meal_date > ?`,
             [messId, startDate],
             (err, result) => {
                 if (err) {
@@ -20,7 +22,9 @@ const findUpcomingMealsWithMessId = (messId, startDate) => {
 const findAllUpcomingMeals = (date, time) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM meals NATURAL JOIN menus WHERE meal_date = ? AND meal_time = ?',
+            `SELECT *
+             FROM meals NATURAL JOIN menus
+             WHERE meal_date = ? AND meal_time = ?`,
             [date, time],
             (err, result) => {
                 if (err) {
@@ -37,7 +41,9 @@ const findAllUpcomingMeals = (date, time) => {
 const findMealByMessDateTime = (messId, date, time) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM meals NATURAL JOIN menus WHERE mess_id = ? AND meal_date = ? AND meal_time = ?',
+            `SELECT *
+             FROM meals NATURAL JOIN menus
+             WHERE mess_id = ? AND meal_date = ? AND meal_time = ?`,
             [messId, date, time],
             (err, result) => {
                 if (err) {
@@ -54,7 +60,9 @@ const findMealByMessDateTime = (messId, date, time) => {
 const insertMeals = (mealsData) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'INSERT INTO meals (meal_date, mess_id, menu_id, meal_time) VALUES ?',
+            `INSERT INTO meals
+             (meal_date, mess_id, menu_id, meal_time)
+             VALUES ?`,
             [mealsData],
             (err, result) => {
                 if (err) {

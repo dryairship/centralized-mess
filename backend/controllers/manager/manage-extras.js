@@ -8,8 +8,7 @@ const handleGetMessExtras = async (req, res) => {
 }
 
 const handleGetExtrasRequests = async (req, res) => {
-    const requests = await extraItemsBillsTable.findExtraItemsRequestWithMessId(
-        req.session.messId, utils.dateToSQLString(new Date(2022, 3, 7)));
+    const requests = await extraItemsBillsTable.findExtraItemsRequestWithMessId(req.session.messId);
     res.status(200).json(requests);
 }
 
@@ -44,17 +43,19 @@ const handleDeleteExtraItem = async (req, res) => {
     }
 }
 
-const handleGetExtrasCosts = async (req, res) => {
+const handleMarkExtraRequestClaimed = async (req, res) => {
     const messId = req.session.messId;
-    const mealDate = req.body.mealDate;
-    const mealTime = req.body.mealTime;
-    let extras = [];
-    if(mealTime == 'All') {
-        extras = await extraItemsBillsTable.findGroupedExtraItemBillsForMessAndDate(messId, mealDate);
+    const timeId = req.body.timeId;
+    const result = await extraItemsBillsTable.markRequestClaimed(messId, timeId);
+    if (result) {
+        res.status(200).json({
+            message: "Marked request successfully",
+        });
     } else {
-        extras = await extraItemsBillsTable.findGroupedExtraItemBillsForMessDateAndTime(messId, mealDate, mealTime);
+        res.status(400).json({
+            message: "Could not mark request as claimed",
+        });
     }
-    res.status(200).json(extras);
 }
 
 export default {
@@ -62,5 +63,5 @@ export default {
     handleGetExtrasRequests,
     handleAddExtraItem,
     handleDeleteExtraItem,
-    handleGetExtrasCosts,
+    handleMarkExtraRequestClaimed,
 };

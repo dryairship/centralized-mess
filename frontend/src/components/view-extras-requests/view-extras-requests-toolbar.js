@@ -38,7 +38,7 @@ export const ViewExtrasRequestsToolbar = ({onFilterChange, ...props}) => {
           </Button>
         </Box>
       </Box>
-      <Box sx={{ mt: 3 }}>
+      {false && <Box sx={{ mt: 3 }}>
         <Card>
           <CardContent>
             <Box sx={{ maxWidth: 500 }}>
@@ -65,6 +65,7 @@ export const ViewExtrasRequestsToolbar = ({onFilterChange, ...props}) => {
           </CardContent>
         </Card>
       </Box>
+      }
     </Box>
   );
 }

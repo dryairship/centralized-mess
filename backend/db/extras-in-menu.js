@@ -3,7 +3,9 @@ import db from "./db.js";
 const insertExtrasInMenu = (extrasInMenuData) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'INSERT INTO extras_in_menu (menu_id, item_id) VALUES ?',
+            `INSERT INTO extras_in_menu
+             (menu_id, item_id)
+             VALUES ?`,
             [extrasInMenuData],
             (err) => {
                 if (err) {
@@ -20,7 +22,9 @@ const insertExtrasInMenu = (extrasInMenuData) => {
 const findExtrasInMenuByMenuId = (menuId) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM extras_in_menu NATURAL JOIN extra_items WHERE menu_id = ?',
+            `SELECT *
+             FROM extras_in_menu NATURAL JOIN extra_items
+             WHERE menu_id = ?`,
             [menuId],
             (err, result) => {
                 if (err) {

@@ -66,7 +66,7 @@ export const ViewExtrasRequestsResults = ({ extrasRequests, appliedFilter, onDel
                   Quantity
                 </TableCell>
                 <TableCell width="15%">
-                  Actions
+                  Action
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -114,13 +114,6 @@ export const ViewExtrasRequestsResults = ({ extrasRequests, appliedFilter, onDel
                       onClick={() => onClaimed(request)}
                     >
                       <DoneIcon />
-                    </IconButton>
-                    <IconButton
-                      aria-label="delete"
-                      color="error"
-                      onClick={() => onDelete(request)}
-                    >
-                      <DeleteIcon />
                     </IconButton>
                   </TableCell>
                 </TableRow>

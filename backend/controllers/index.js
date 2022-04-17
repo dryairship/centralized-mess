@@ -33,7 +33,8 @@ managerRoutes.post('/addMeals', manageMealsControllers.handleAddMeals);
 managerRoutes.post('/getStudentBills', manageStudentBillsControllers.handleGetStudentBills);
 managerRoutes.post('/addExtraItem', manageExtrasControllers.handleAddExtraItem);
 managerRoutes.post('/deleteExtraItem', manageExtrasControllers.handleDeleteExtraItem);
-managerRoutes.post('/getExtrasCosts', manageExtrasControllers.handleGetExtrasCosts);
+managerRoutes.post('/getExtrasCosts', manageStudentBillsControllers.handleGetExtrasCosts);
+managerRoutes.post('/markExtraRequestClaimed', manageExtrasControllers.handleMarkExtraRequestClaimed);
 
 const studentRoutes = express.Router();
 studentRoutes.use(middlewares.ensureStudentLoggedIn);

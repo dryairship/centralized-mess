@@ -3,7 +3,9 @@ import db from './db.js';
 const findExtraItemsWithMessId = (messId) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM extra_items WHERE mess_id = ? AND deleted = false',
+            `SELECT *
+             FROM extra_items
+             WHERE mess_id = ? AND deleted = false`,
             [messId],
             (err, result) => {
                 if (err) {
@@ -20,7 +22,9 @@ const findExtraItemsWithMessId = (messId) => {
 const findExtraItemWithMessAndItemId = (messId, itemId) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM extra_items WHERE mess_id = ? AND item_id = ? AND deleted = false',
+            `SELECT *
+             FROM extra_items
+             WHERE mess_id = ? AND item_id = ? AND deleted = false`,
             [messId, itemId],
             (err, result) => {
                 if (err) {
@@ -37,7 +41,9 @@ const findExtraItemWithMessAndItemId = (messId, itemId) => {
 const insertExtraItem = (messId, itemName, costPerItem) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'INSERT INTO extra_items (item_name, mess_id, cost_per_item) VALUES ?',
+            `INSERT INTO extra_items
+             (item_name, mess_id, cost_per_item)
+             VALUES ?`,
             [[[itemName, messId, costPerItem]]],
             (err) => {
                 if (err) {
@@ -54,7 +60,9 @@ const insertExtraItem = (messId, itemName, costPerItem) => {
 const deleteExtraItem = (messId, itemId) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'UPDATE extra_items SET deleted = true WHERE mess_id = ? AND item_id = ?',
+            `UPDATE extra_items
+             SET deleted = true
+             WHERE mess_id = ? AND item_id = ?`,
             [messId, itemId],
             (err) => {
                 if (err) {

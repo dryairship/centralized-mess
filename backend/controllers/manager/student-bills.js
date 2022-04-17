@@ -21,6 +21,22 @@ const handleGetStudentBills = async (req, res) => {
         });
     }
 }
+
+const handleGetExtrasCosts = async (req, res) => {
+    const messId = req.session.messId;
+    const mealDate = req.body.mealDate;
+    const mealTime = req.body.mealTime;
+    let extras = [];
+    if(mealTime == 'All') {
+        extras = await extraItemsBillsTable.findGroupedExtraItemBillsForMessAndDate(messId, mealDate);
+    } else {
+        extras = await extraItemsBillsTable.findGroupedExtraItemBillsForMessDateAndTime(messId, mealDate, mealTime);
+    }
+    res.status(200).json(extras);
+}
+
+
 export default {
     handleGetStudentBills,
-}
+    handleGetExtrasCosts,
+};

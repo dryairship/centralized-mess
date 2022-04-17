@@ -43,7 +43,7 @@ export const AddMeals = (props) => {
 
   const dateToSQLString = (date) => {
     return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-}
+  }
 
   const onSaveMeals = async () => {
     const mealsData = meals.map((meal) => { return {
