@@ -8,6 +8,8 @@ import manageExtrasControllers from './manager/manage-extras.js';
 import manageMealsControllers from './manager/manage-meals.js';
 import manageStudentBillsControllers from './manager/student-bills.js';
 import studentBillsControllers from './student/student-bills.js';
+import studentMealsControllers from './student/meals.js';
+import studentExtrasControllers from './student/extras.js';
 
 const routes = express.Router();
 
@@ -29,10 +31,18 @@ managerRoutes.post('/addMenus', manageMenusControllers.handleAddMenus);
 managerRoutes.get('/getMessUpcomingMeals', manageMealsControllers.handleGetMessUpcomingMeals);
 managerRoutes.post('/addMeals', manageMealsControllers.handleAddMeals);
 managerRoutes.post('/getStudentBills', manageStudentBillsControllers.handleGetStudentBills);
+managerRoutes.post('/addExtraItem', manageExtrasControllers.handleAddExtraItem);
+managerRoutes.post('/deleteExtraItem', manageExtrasControllers.handleDeleteExtraItem);
 
 const studentRoutes = express.Router();
 studentRoutes.use(middlewares.ensureStudentLoggedIn);
 studentRoutes.get('/getStudentBills', studentBillsControllers.handleGetStudentBills);
+studentRoutes.post('/getUpcomingMeals', studentMealsControllers.handleGetUpcomingMeals);
+studentRoutes.post('/getMealDetails', studentMealsControllers.handleGetMealDetails);
+studentRoutes.get('/getUnclaimedExtras', studentExtrasControllers.handleGetUnclaimedExtras);
+studentRoutes.post('/getUnclaimedExtrasForMess', studentExtrasControllers.handleGetUnclaimedExtrasForMess);
+studentRoutes.post('/purchaseExtraItems', studentExtrasControllers.handlePurchaseExtraItems);
+studentRoutes.post('/deleteUnclaimedExtraItem', studentExtrasControllers.handleDeleteUnclaimedExtraItem);
 
 routes.use('/test', testRoutes);
 routes.use('/auth', authRoutes);

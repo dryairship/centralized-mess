@@ -13,7 +13,40 @@ const handleGetExtrasRequests = async (req, res) => {
     res.status(200).json(requests);
 }
 
+const handleAddExtraItem = async (req, res) => {
+    const messId = req.session.messId;
+    const itemName = req.body.itemName;
+    const costPerItem = req.body.costPerItem;
+    const result = await extraItemsTable.insertExtraItem(messId, itemName, costPerItem);
+    if (result) {
+        res.status(200).json({
+            message: "Inserted Item successfully",
+        });
+    } else {
+        res.status(400).json({
+            message: "Could not insert item",
+        });
+    }
+}
+
+const handleDeleteExtraItem = async (req, res) => {
+    const messId = req.session.messId;
+    const itemId = req.body.itemId;
+    const result = await extraItemsTable.deleteExtraItem(messId, itemId);
+    if (result) {
+        res.status(200).json({
+            message: "Deleted item successfully",
+        });
+    } else {
+        res.status(400).json({
+            message: "Could not delete item",
+        });
+    }
+}
+
 export default {
     handleGetMessExtras,
     handleGetExtrasRequests,
+    handleAddExtraItem,
+    handleDeleteExtraItem,
 };

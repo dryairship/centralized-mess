@@ -3,8 +3,42 @@ import db from './db.js';
 const findUpcomingMealsWithMessId = (messId, startDate) => {
     return new Promise((resolve, reject) => {
         db.query(
-            'SELECT * FROM meals natural join menus WHERE mess_id = ? and meal_date > ?',
+            'SELECT * FROM meals NATURAL JOIN menus WHERE mess_id = ? AND meal_date > ?',
             [messId, startDate],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
+const findAllUpcomingMeals = (date, time) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM meals NATURAL JOIN menus WHERE meal_date = ? AND meal_time = ?',
+            [date, time],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
+const findMealByMessDateTime = (messId, date, time) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM meals NATURAL JOIN menus WHERE mess_id = ? AND meal_date = ? AND meal_time = ?',
+            [messId, date, time],
             (err, result) => {
                 if (err) {
                     console.log(err);
@@ -36,5 +70,7 @@ const insertMeals = (mealsData) => {
 
 export default {
     findUpcomingMealsWithMessId,
+    findAllUpcomingMeals,
     insertMeals,
+    findMealByMessDateTime,
 };

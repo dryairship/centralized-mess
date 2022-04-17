@@ -17,6 +17,24 @@ const insertExtrasInMenu = (extrasInMenuData) => {
     });
 }
 
+const findExtrasInMenuByMenuId = (menuId) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT * FROM extras_in_menu NATURAL JOIN extra_items WHERE menu_id = ?',
+            [menuId],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
 export default {
     insertExtrasInMenu,
+    findExtrasInMenuByMenuId,
 };

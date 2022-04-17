@@ -15,7 +15,7 @@ import {
 
 const menuTimes = ['All', 'Breakfast', 'Lunch', 'Dinner'];
 
-export const ManageExtrasToolbar = ({onFilterChange, ...props}) => {
+export const ManageExtrasToolbar = ({onFilterChange, setAlertData, refresh, ...props}) => {
   const [addExtraDialogOpen, setAddExtraDialogOpen] = useState(false);
   const [newItem, setNewItem] = useState({itemName: '', costPerItem: ''});
   
@@ -34,8 +34,29 @@ export const ManageExtrasToolbar = ({onFilterChange, ...props}) => {
     });
   }; 
 
-  const handleAddExtraSubmit = () => {
-    console.log(newItem);
+  const handleAddExtraSubmit = async () => {
+    handleAddExtraClose();
+    const response = await fetch('/api/manager/addExtraItem', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        itemName: newItem.itemName,
+        costPerItem: newItem.costPerItem,
+      }),
+    });
+    const data = await response.json();
+    setAlertData({
+      severity: response.status == 200 ? 'success' : 'error',
+      message: data.message,
+      visible: true,
+    });
+    if (response.status == 200) {
+      refresh();
+      setNewItem({itemName: '', costPerItem: ''});
+    }
   }
 
   return (

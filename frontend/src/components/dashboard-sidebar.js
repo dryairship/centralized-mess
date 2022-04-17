@@ -9,6 +9,7 @@ import {
   Drawer, 
   Typography, 
   useMediaQuery, 
+  Avatar,
   List, 
   ListSubheader, 
   ListItemButton, 
@@ -33,6 +34,9 @@ import { XCircle as XCircleIcon } from '../icons/x-circle';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ListAltIcon from '@mui/icons-material/ListAlt';
 import ListIcon from '@mui/icons-material/List';
+import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LoginIcon from '@mui/icons-material/Login';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
@@ -40,14 +44,21 @@ import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
-const sections = [
+const managerSections = [
   {
+    type: 'item',
+    title: 'Dashboard',
+    icon: (<HomeIcon fontSize="small" />),
+    href: '/manager/dashboard'
+  },
+  {
+    type: 'section',
     title: "Real-Time Management",
     icon: (<ListAltIcon fontSize="small" />),
     items: [
       {
         href: '/manager/student-entry',
-        icon: (<AddBoxIcon fontSize="small" />),
+        icon: (<LoginIcon fontSize="small" />),
         title: 'Student Entry'
       },
       {
@@ -58,6 +69,7 @@ const sections = [
     ]
   },
   {
+    type: 'section',
     title: "Menu Management",
     icon: (<ListAltIcon fontSize="small" />),
     items: [
@@ -79,6 +91,7 @@ const sections = [
     ]
   },
   {
+    type: 'section',
     title: "Meals Management",
     icon: (<LocalDiningIcon fontSize="small" />),
     items: [
@@ -95,6 +108,7 @@ const sections = [
     ],
   },
   {
+    type: 'section',
     title: "Finance Management",
     icon: (<CurrencyRupeeIcon fontSize="small" />),
     items: [
@@ -114,60 +128,46 @@ const sections = [
         title: 'View Student Bills'
       },
     ],
-  }
+  },
+  {
+    type: 'item',
+    title: 'Logout',
+    icon: (<LogoutIcon fontSize="small" />),
+    href: '/manager/logout'
+  },
 ];
 
-const items = [
+const studentSections = [
   {
-    href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
+    type: 'item',
+    title: 'Dashboard',
+    icon: (<HomeIcon fontSize="small" />),
+    href: '/student/dashboard'
   },
   {
-    href: '/student/next-meal',
+    type: 'item',
+    title: 'View Upcoming Meals',
     icon: (<SearchIcon fontSize="small" />),
-    title: 'Lookup Next Meal'
+    href: '/student/view-upcoming-meals'
   },
   {
-    href: '/customers',
-    icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
+    type: 'item',
+    title: 'Purchase Extra Items',
+    icon: (<FastfoodIcon fontSize="small" />),
+    href: '/student/purchase-extra-items',
   },
   {
-    href: '/products',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
+    type: 'item',
+    title: 'Logout',
+    icon: (<LogoutIcon fontSize="small" />),
+    href: '/student/logout'
   },
-  {
-    href: '/account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
-  },
-  {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
-  },
-  {
-    href: '/login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
-  },
-  {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
-  }
 ];
 
 export const DashboardSidebar = (props) => {
   const { open, onClose } = props;
-  const [menuOpen, setMenuOpen] = useState(sections.map(() => false));
+  const [menuOpen, setMenuOpen] = useState(managerSections.map(() => false));
+  const [sections, setSections] = useState([]);
   const router = useRouter();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
@@ -196,6 +196,14 @@ export const DashboardSidebar = (props) => {
     [router.asPath]
   );
 
+  useEffect(() => {
+    if (window.location.pathname.startsWith("/student")) {
+      setSections(studentSections);
+    } else {
+      setSections(managerSections);
+    }
+  }, []);
+
   const content = (
     <>
       <Box
@@ -206,58 +214,19 @@ export const DashboardSidebar = (props) => {
         }}
       >
         <div>
-          <Box sx={{ p: 3 }}>
-            <NextLink
-              href="/"
-              passHref
-            >
-              <a>
-                <Logo
-                  sx={{
-                    height: 42,
-                    width: 42
-                  }}
-                />
-              </a>
-            </NextLink>
+          <Box sx={{ p: 3, justifyContent: 'center', display: 'flex', alignItems: 'center'}}>
+            <Avatar
+              src={`/static/images/iitk-white.png`}
+              sx={{ width: 152, height: 150 }} />
+              
           </Box>
-          <Box sx={{ px: 2 }}>
-            <Box
-              sx={{
-                alignItems: 'center',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                cursor: 'pointer',
-                display: 'flex',
-                justifyContent: 'space-between',
-                px: 3,
-                py: '11px',
-                borderRadius: 1
-              }}
+          <Box sx={{ px: 2, justifyContent: 'center', display: 'flex', alignItems: 'center' }}>          
+            <Typography
+              color="inherit"
+              variant="subtitle1"
             >
-              <div>
-                <Typography
-                  color="inherit"
-                  variant="subtitle1"
-                >
-                  Acme Inc
-                </Typography>
-                <Typography
-                  color="neutral.400"
-                  variant="body2"
-                >
-                  Your tier
-                  {' '}
-                  : Premium
-                </Typography>
-              </div>
-              <SelectorIcon
-                sx={{
-                  color: 'neutral.500',
-                  width: 14,
-                  height: 14
-                }}
-              />
-            </Box>
+              Centralized Mess @ IITK
+            </Typography>
           </Box>
         </div>
         <Divider
@@ -268,6 +237,7 @@ export const DashboardSidebar = (props) => {
         />
         <Box sx={{ flexGrow: 1 }}>
           {sections.map((section, index) => 
+            section.type == 'section' ?
             <div key={index}>
               <ListItem>
                 <Button
@@ -309,18 +279,15 @@ export const DashboardSidebar = (props) => {
                 ))}
               </Collapse>
             </div>
+            :
+            <NavItem
+              key={index}
+              icon={section.icon}
+              href={section.href}
+              title={section.title}
+            />
           )}
           </Box>
-        <Box sx={{ flexGrow: 1 }}>
-          {items.map((item) => (
-            <NavItem
-              key={item.title}
-              icon={item.icon}
-              href={item.href}
-              title={item.title}
-            />
-          ))}
-        </Box>
         <Divider sx={{ borderColor: '#2D3748' }} />
         <Box
           sx={{
@@ -331,46 +298,10 @@ export const DashboardSidebar = (props) => {
           <Typography
             color="neutral.100"
             variant="subtitle2"
+            align='center'
           >
-            Need more features?
+            Built by <br/> Priydarshi and Saumya
           </Typography>
-          <Typography
-            color="neutral.500"
-            variant="body2"
-          >
-            Check out our Pro solution template.
-          </Typography>
-          <Box
-            sx={{
-              display: 'flex',
-              mt: 2,
-              mx: 'auto',
-              width: '160px',
-              '& img': {
-                width: '100%'
-              }
-            }}
-          >
-            <img
-              alt="Go to pro"
-              src="/static/images/sidebar_pro.png"
-            />
-          </Box>
-          <NextLink
-            href="https://material-kit-pro-react.devias.io/"
-            passHref
-          >
-            <Button
-              color="secondary"
-              component="a"
-              endIcon={(<OpenInNewIcon />)}
-              fullWidth
-              sx={{ mt: 2 }}
-              variant="contained"
-            >
-              Pro Live Preview
-            </Button>
-          </NextLink>
         </Box>
       </Box>
     </>

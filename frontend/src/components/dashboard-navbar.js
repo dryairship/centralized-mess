@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip } from '@mui/material';
+import { AppBar, Avatar, Badge, Box, IconButton, Toolbar, Tooltip, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useState, useEffect } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
@@ -15,6 +16,24 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
 
+  const [topbarData, setTopbarData] = useState(null);
+
+  useEffect(() => {
+    if (window.location.pathname.startsWith('/student')) {
+      setTopbarData({
+        title: "Student Console",
+        name: localStorage.getItem("name"),
+        image: `https://oa.cc.iitk.ac.in/Oa/Jsp/Photo/${localStorage.getItem("rollNumber")}_0.jpg`
+      });
+    } else {
+      setTopbarData({
+        title: `Hall ${localStorage.getItem("messId")} Mess Management Console`,
+        name: localStorage.getItem("name"),
+        image: `https://thispersondoesnotexist.com/image`
+      })
+    }
+  }, []);
+
   return (
     <>
       <DashboardNavbarRoot
@@ -27,6 +46,7 @@ export const DashboardNavbar = (props) => {
           }
         }}
         {...other}>
+        {topbarData && 
         <Toolbar
           disableGutters
           sx={{
@@ -46,39 +66,31 @@ export const DashboardNavbar = (props) => {
           >
             <MenuIcon fontSize="small" />
           </IconButton>
-          <Tooltip title="Search">
-            <IconButton sx={{ ml: 1 }}>
-              <SearchIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
+          <Typography 
+            color="textPrimary"
+            gutterBottom
+            variant="h5">
+            {topbarData.title}
+          </Typography>
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Contacts">
-            <IconButton sx={{ ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Notifications">
-            <IconButton sx={{ ml: 1 }}>
-              <Badge
-                badgeContent={4}
-                color="primary"
-                variant="dot"
-              >
-                <BellIcon fontSize="small" />
-              </Badge>
-            </IconButton>
-          </Tooltip>
           <Avatar
             sx={{
               height: 40,
               width: 40,
               ml: 1
             }}
-            src="/static/images/avatars/avatar_1.png"
+            src={topbarData.image}
           >
             <UserCircleIcon fontSize="small" />
           </Avatar>
+          <Typography 
+            color="textPrimary"
+            margin={2}
+            variant="h6">
+            {topbarData.name}
+          </Typography>
         </Toolbar>
+        }
       </DashboardNavbarRoot>
     </>
   );
