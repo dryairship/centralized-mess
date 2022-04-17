@@ -63,10 +63,10 @@ export const ViewExtrasCostsResults = ({ extrasCosts, ...rest }) => {
                     ₹ {item.cost_per_item}
                   </TableCell>
                   <TableCell>
-                    {item.qty_sold}
+                    {item.quantity}
                   </TableCell>
                   <TableCell>
-                    ₹ {item.total_cost}
+                    ₹ {item.cost}
                   </TableCell>
                 </TableRow>
               ))}

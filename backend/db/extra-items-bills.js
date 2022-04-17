@@ -136,6 +136,40 @@ const deleteExtraItemBill = (timeId) => {
     });
 }
 
+const findGroupedExtraItemBillsForMessDateAndTime = (messId, mealDate, mealTime) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT item_id, item_name, cost_per_item, sum(quantity) AS quantity, sum(cost) AS cost FROM extra_items_bills NATURAL JOIN extra_items WHERE mess_id = ? AND meal_date = ? AND meal_time = ? AND claimed = true GROUP BY item_id',
+            [messId, mealDate, mealTime],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
+const findGroupedExtraItemBillsForMessAndDate = (messId, mealDate) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            'SELECT item_id, item_name, cost_per_item, sum(quantity) AS quantity, sum(cost) AS cost FROM extra_items_bills NATURAL JOIN extra_items WHERE mess_id = ? AND meal_date = ? AND claimed = true GROUP BY item_id',
+            [messId, mealDate],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
 export default {
     findExtraItemsRequestWithMessId,
     findExtraItemsBillsForStudent,
@@ -145,4 +179,6 @@ export default {
     insertExtraItemBill,
     findExtraItemBillByTimeId,
     deleteExtraItemBill,
+    findGroupedExtraItemBillsForMessDateAndTime,
+    findGroupedExtraItemBillsForMessAndDate,
 }

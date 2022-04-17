@@ -12,7 +12,6 @@ const ViewStudentBills = () => {
   const [alertData, setAlertData] = useState({severity: 'error', message: 'Meow', visible: false});
 
   const handleViewSubmit = async (studentRoll) => {
-    console.log(studentRoll);
     const response = await fetch('/api/manager/getStudentBills', {
       method: 'POST',
       headers: {
