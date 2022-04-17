@@ -16,7 +16,7 @@ const App = (props) => {
   const getLayout = Component.getLayout ?? ((page) => page);
 
   useEffect(() => {
-    /*const sessionType = localStorage.getItem('sessionType');
+    const sessionType = localStorage.getItem('sessionType');
     console.log(sessionType, window.location.pathname);
     if (window.location.pathname.startsWith("/manager/") && sessionType != "Manager") {
       window.location.href = "/managerLogin";
@@ -26,7 +26,7 @@ const App = (props) => {
       window.location.href = "/manager/dashboard";
     } else if (window.location.pathname == "/" && sessionType == "Student") {
       window.location.href = "/student/dashboard";
-    }*/
+    }
   }, []);
 
   return (

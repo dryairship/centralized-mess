@@ -64,7 +64,15 @@ const handleStudentLogin = async (req, res) => {
     }
 }
 
+const handleLogout = async (req, res) => {
+    req.session = null;
+    res.status(200).json({
+        message: "Logged Out",
+    });
+}
+
 export default {
     handleManagerLogin,
     handleStudentLogin,
+    handleLogout,
 };

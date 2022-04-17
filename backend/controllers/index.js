@@ -19,6 +19,7 @@ testRoutes.get('/ping', testControllers.handlePing);
 const authRoutes = express.Router();
 authRoutes.post('/managerLogin', authControllers.handleManagerLogin);
 authRoutes.post('/studentLogin', authControllers.handleStudentLogin);
+authRoutes.get('/logout', authControllers.handleLogout);
 
 const managerRoutes = express.Router();
 managerRoutes.use(middlewares.ensureManagerLoggedIn);
