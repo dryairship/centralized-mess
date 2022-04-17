@@ -35,8 +35,25 @@ const handleGetExtrasCosts = async (req, res) => {
     res.status(200).json(extras);
 }
 
+const handleGetMealsRecords = async (req, res) => {
+    const messId = req.session.messId;
+    const mealDate = req.body.mealDate;
+    const mealTime = req.body.mealTime;
+    const records = await basicMenuBillsTable.findRecordsForMeal(messId, mealDate, mealTime);
+    res.status(200).json(records);
+}
+
+const handleGetExtrasRecords = async (req, res) => {
+    const messId = req.session.messId;
+    const mealDate = req.body.mealDate;
+    const mealTime = req.body.mealTime;
+    const records = await extraItemsBillsTable.findExtrasRecordsForMeal(messId, mealDate, mealTime);
+    res.status(200).json(records);
+}
 
 export default {
     handleGetStudentBills,
     handleGetExtrasCosts,
+    handleGetMealsRecords,
+    handleGetExtrasRecords,
 };

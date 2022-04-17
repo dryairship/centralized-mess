@@ -59,8 +59,69 @@ const findBasicMenuBillsForStudentAndMess = (rollNumber, messId) => {
     });
 }
 
+const countStudentsForMeal = (messId, mealDate, mealTime) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            `SELECT count(*) AS cnt
+             FROM basic_menu_bills
+             WHERE mess_id = ? AND meal_date = ? AND meal_time = ?`,
+            [messId, mealDate, mealTime],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
+const addAverageMealCost = (messId, mealDate, mealTime, avgCost) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            `UPDATE basic_menu_bills
+             SET cost = ?
+             WHERE mess_id = ? AND meal_date = ? AND meal_time = ?`,
+            [avgCost, messId, mealDate, mealTime],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve(false);
+                } else {
+                    resolve(true);
+                }
+            }
+        );
+    });
+}
+
+const findRecordsForMeal = (messId, mealDate, mealTime) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            `SELECT *
+             FROM basic_menu_bills
+             WHERE mess_id = ? AND meal_date = ? AND meal_time = ?
+             ORDER BY time_id DESC`,
+            [messId, mealDate, mealTime],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
 export default {
     insertBill,
     findBasicMenuBillsForStudent,
     findBasicMenuBillsForStudentAndMess,
+    countStudentsForMeal,
+    addAverageMealCost,
+    findRecordsForMeal,
 };

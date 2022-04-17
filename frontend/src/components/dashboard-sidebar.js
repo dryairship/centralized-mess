@@ -41,6 +41,7 @@ import FastfoodIcon from '@mui/icons-material/Fastfood';
 import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 import LocalDiningIcon from '@mui/icons-material/LocalDining';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import { Logo } from './logo';
 import { NavItem } from './nav-item';
 
@@ -126,6 +127,16 @@ const managerSections = [
         href: '/manager/view-student-bills',
         icon: (<PersonSearchIcon fontSize="small" />),
         title: 'View Student Bills'
+      },
+      {
+        href: '/manager/view-meals-records',
+        icon: (<ReceiptLongIcon fontSize="small" />),
+        title: 'View Meals Records'
+      },
+      {
+        href: '/manager/view-extras-records',
+        icon: (<ReceiptLongIcon fontSize="small" />),
+        title: 'View Extras Records'
       },
     ],
   },

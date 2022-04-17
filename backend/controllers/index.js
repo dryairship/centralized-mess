@@ -35,6 +35,10 @@ managerRoutes.post('/addExtraItem', manageExtrasControllers.handleAddExtraItem);
 managerRoutes.post('/deleteExtraItem', manageExtrasControllers.handleDeleteExtraItem);
 managerRoutes.post('/getExtrasCosts', manageStudentBillsControllers.handleGetExtrasCosts);
 managerRoutes.post('/markExtraRequestClaimed', manageExtrasControllers.handleMarkExtraRequestClaimed);
+managerRoutes.get('/getMessCompletedMeals', manageMealsControllers.handleGetMessCompletedMeals);
+managerRoutes.post('/addMealCost', manageMealsControllers.handleAddMealCost);
+managerRoutes.post('/getMealsRecords', manageStudentBillsControllers.handleGetMealsRecords);
+managerRoutes.post('/getExtrasRecords', manageStudentBillsControllers.handleGetExtrasRecords);
 
 const studentRoutes = express.Router();
 studentRoutes.use(middlewares.ensureStudentLoggedIn);

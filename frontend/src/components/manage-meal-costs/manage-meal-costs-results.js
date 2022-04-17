@@ -19,6 +19,7 @@ import {
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { EnterCostDialog } from './enter-cost-dialog';
+import utils from '../../utils/utils';
 
 export const ManageMealCostsResults = ({ mealCosts, appliedFilter, onDelete, ...rest }) => {
   const [limit, setLimit] = useState(10);
@@ -32,7 +33,8 @@ export const ManageMealCostsResults = ({ mealCosts, appliedFilter, onDelete, ...
 
   useEffect(() => {
     setFilteredMealCosts(mealCosts.filter((meal) => appliedFilter === 'All' || appliedFilter === meal.meal_time));
-  }, [appliedFilter]);
+    setPage(0);
+  }, [appliedFilter, mealCosts]);
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
@@ -52,8 +54,30 @@ export const ManageMealCostsResults = ({ mealCosts, appliedFilter, onDelete, ...
     });
   }
 
-  const handleAddCostSubmit = (meal, totalCost) => {
+  const handleAddCostSubmit = async (meal, totalCost) => {
     console.log(meal, totalCost);
+    const response = await fetch('/api/manager/addMealCost', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        mealDate: utils.returnedDateToSQLString(meal.meal_date),
+        mealTime: meal.meal_time,
+        totalCost: totalCost,
+      }),
+    });
+    // const data = await response.json();
+    // if(response.status == 200) {
+    //   setStudentBills(data);
+    // } else {
+    //   setAlertData({
+    //     severity: 'error',
+    //     message: data.message,
+    //     visible: true,
+    //   });
+    // }
   }
 
   return (
@@ -81,7 +105,7 @@ export const ManageMealCostsResults = ({ mealCosts, appliedFilter, onDelete, ...
                   key={i}
                 >
                   <TableCell>
-                    {meal.meal_date}
+                    {new Date(meal.meal_date).toLocaleDateString("IN")}
                   </TableCell>
                   <TableCell>
                     {meal.meal_time}

@@ -215,6 +215,26 @@ const markRequestClaimed = (messId, timeId) => {
     });
 }
 
+const findExtrasRecordsForMeal = (messId, mealDate, mealTime) => {
+    return new Promise((resolve, reject) => {
+        db.query(
+            `SELECT *
+             FROM extra_items_bills NATURAL JOIN extra_items
+             WHERE mess_id = ? AND meal_date = ? AND meal_time = ?
+             ORDER BY time_id DESC`,
+            [messId, mealDate, mealTime],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    resolve([]);
+                } else {
+                    resolve (result);
+                }
+            }
+        );
+    });
+}
+
 export default {
     findExtraItemsRequestWithMessId,
     findExtraItemsBillsForStudent,
@@ -227,4 +247,5 @@ export default {
     findGroupedExtraItemBillsForMessDateAndTime,
     findGroupedExtraItemBillsForMessAndDate,
     markRequestClaimed,
+    findExtrasRecordsForMeal,
 }
