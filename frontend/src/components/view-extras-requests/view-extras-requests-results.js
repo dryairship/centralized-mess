@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DoneIcon from '@mui/icons-material/Done';
+import utils from '../../utils/utils';
 
 export const ViewExtrasRequestsResults = ({ extrasRequests, appliedFilter, onDelete, onClaimed,...rest }) => {
   const [limit, setLimit] = useState(10);
@@ -77,7 +78,7 @@ export const ViewExtrasRequestsResults = ({ extrasRequests, appliedFilter, onDel
                   key={request.time_id}
                 >
                   <TableCell>
-                    {new Date(request.time_id).toLocaleString()}
+                    {utils.returnedDateToLocalString(request.time_id)}
                   </TableCell>
                   <TableCell>
                     <Box

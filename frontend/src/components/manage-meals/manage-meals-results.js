@@ -51,9 +51,6 @@ export const ManageMealsResults = ({ meals, appliedFilter, onDelete, ...rest }) 
                 <TableCell width="50%">
                   Menu
                 </TableCell>
-                <TableCell width="10%">
-                  Actions
-                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -70,15 +67,6 @@ export const ManageMealsResults = ({ meals, appliedFilter, onDelete, ...rest }) 
                   </TableCell>
                   <TableCell>
                     {meal.contents}
-                  </TableCell>
-                  <TableCell>
-                    <IconButton
-                      aria-label="delete"
-                      color="error"
-                      onClick={() => onDelete(meal)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}

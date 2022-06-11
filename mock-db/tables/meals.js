@@ -1,9 +1,14 @@
 const firstDate = new Date(2022, 0, 1);
-const lastDate = new Date(2022, 3, 30);
+const lastDate = new Date(2022, 3, 23);
 const times = ["Breakfast", "Lunch", "Dinner"];
 
 const dateToSQLDateString = (date) => {
     return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+}
+
+const plusMinusTwentyPercent = (price) => {
+    let randomValue = Math.random();
+    return price * (1 + 0.4*(0.5 - randomValue));
 }
 
 export default function insertMeals(connection) {
@@ -16,7 +21,7 @@ export default function insertMeals(connection) {
                     mess,
                     (100 * mess) + (10 * d.getDay()) + time,
                     times[time],
-                    null,
+                    plusMinusTwentyPercent(2000),
                 ]);
             }
         }

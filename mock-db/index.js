@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
 });
 
 const insertData = () => {
-    tables.insertStudents(connection);
+    //tables.insertStudents(connection);
     tables.insertMesses(connection);
     tables.insertManagers(connection);
     tables.insertMenus(connection);

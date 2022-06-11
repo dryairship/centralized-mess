@@ -3,15 +3,15 @@ const dateToSQLString = (date) => {
 }
 
 const returnedDateToLocalTime = (date) => {
-    return new Date(date).toLocaleTimeString("IN");
+    return new Date(date).toLocaleTimeString("en-IN");
 }
 
 const returnedDateToLocalDate = (date) => {
-    return new Date(date).toLocaleDateString("IN");
+    return new Date(date).toLocaleDateString("en-IN");
 }
 
 const returnedDateToLocalString = (date) => {
-    return new Date(date).toLocaleString("IN");
+    return new Date(date).toLocaleString("en-IN");
 }
 
 const returnedDateToSQLString = (date) => {

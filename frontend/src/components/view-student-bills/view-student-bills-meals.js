@@ -43,7 +43,7 @@ export const ViewStudentBillsMeals = ({ studentBills, showMessName, ...rest }) =
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell width="40%">
+                <TableCell width="20%">
                   Date
                 </TableCell>
                 {showMessName && 
@@ -51,7 +51,7 @@ export const ViewStudentBillsMeals = ({ studentBills, showMessName, ...rest }) =
                   Mess Name
                 </TableCell>
                 }
-                <TableCell width="40%">
+                <TableCell width="20%">
                   Meal Time
                 </TableCell>
                 <TableCell width="20%">
@@ -77,7 +77,7 @@ export const ViewStudentBillsMeals = ({ studentBills, showMessName, ...rest }) =
                     {meal.meal_time}
                   </TableCell>
                   <TableCell>
-                    ₹ {meal.cost}
+                    ₹ {meal.cost.toFixed(2)}
                   </TableCell>
                 </TableRow>
               ))}

@@ -67,7 +67,7 @@ export const ViewMealsRecordsResults = ({ mealsRecords, ...rest }) => {
                     {meal.roll_number}
                   </TableCell>
                   <TableCell>
-                    ₹ {meal.cost}
+                    ₹ {meal.cost.toFixed(2)}
                   </TableCell>
                 </TableRow>
               ))}

@@ -19,7 +19,7 @@ const nextMealTime = () => {
   const h = time.getHours(), m = time.getMinutes();
   if(h <= 8 || (h == 9 && m <= 30)) return mealTimes[0];
   else if(h <= 13 || (h == 14 && m <= 30)) return mealTimes[1];
-  else if(h <= 20 || (h == 21 && m <= 30)) return mealTimes[2];
+  else if(h <= 22 || (h == 23 && m <= 30)) return mealTimes[2];
   else return mealTimes[0];
 }
 

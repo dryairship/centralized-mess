@@ -19,6 +19,8 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { PurchaseExtrasDialog } from './purchase-extras-dialog';
+import utils from '../../utils/utils';
+
 
 const dateToSQLString = (date) => {
   if(!date) return date;
@@ -79,7 +81,7 @@ export const PurchaseExtrasResults = ({ meal, extras, setAlertData, refresh, ...
         itemId: parseInt(itemId),
         quantity: quantity,
         mealTime: meal.meal_time,
-        mealDate: dateToSQLString(mealDate),
+        mealDate: utils.dateToSQLString(mealDate),
       }),
     });
     const data = await response.json();
@@ -103,7 +105,7 @@ export const PurchaseExtrasResults = ({ meal, extras, setAlertData, refresh, ...
           mb={5}
         >
             Mess: Hall {meal.mess_id} Mess <br/>
-            Date: {new Date(meal.meal_date).toLocaleDateString()} <br/>
+            Date: {utils.returnedDateToLocalDate(meal.meal_date)} <br/>
             Time: {meal.meal_time} <br/>
             Basic Menu: {meal.contents} <br/>
             Extras: {meal.extras} <br/>
@@ -158,7 +160,7 @@ export const PurchaseExtrasResults = ({ meal, extras, setAlertData, refresh, ...
                   key={item.item_id}
                 >
                   <TableCell>
-                    {new Date(item.time_id).toLocaleTimeString()}
+                    {utils.returnedDateToLocalDate(item.time_id)}
                   </TableCell>
                   <TableCell>
                     {item.item_name}

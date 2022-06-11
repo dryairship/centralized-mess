@@ -1,7 +1,7 @@
 import students from '../data/students.json' assert {type: "json"}; 
 
 const firstDate = new Date(2022, 2, 1);
-const lastDate = new Date(2022, 3, 8);
+const lastDate = new Date(2022, 3, 17);
 
 const numBreakfast = 10;
 const numDaily = 20;
@@ -11,6 +11,11 @@ const hours = [8, 13, 20];
 
 const dateToSQLDateString = (date) => {
     return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+}
+
+const plusMinusTwentyPercent = (price) => {
+    let randomValue = Math.random();
+    return price * (1 + 0.4*(0.5 - randomValue));
 }
 
 const getStudentRolls = () => {
@@ -49,9 +54,19 @@ const parseExtrasPrices = (extrasData) => {
     const n = extrasData.length;
 
     for (let i = 0; i < n; i++) {
-        extrasPrices[extrasData[i][0]] = extrasData[i][3];
+        if(!extrasPrices[extrasData[i][2]]) extrasPrices[extrasData[i][2]] = {};
+        extrasPrices[extrasData[i][2]][extrasData[i][0]] = extrasData[i][3];
     }
     return extrasPrices;
+}
+
+const mealCostsDict = {};
+
+const getMealCost = (messId, mealDate, mealTime) => {
+    if(!mealCostsDict[messId]) mealCostsDict[messId] = {};
+    if(!mealCostsDict[messId][mealDate]) mealCostsDict[messId][mealDate] = {};
+    if(!mealCostsDict[messId][mealDate][mealTime]) mealCostsDict[messId][mealDate][mealTime] = plusMinusTwentyPercent(25);
+    return mealCostsDict[messId][mealDate][mealTime];
 }
 
 export default function insertBills(connection, extrasInMenuArray, extrasDataArray) {
@@ -66,7 +81,6 @@ export default function insertBills(connection, extrasInMenuArray, extrasDataArr
             const dateString = dateToSQLDateString(d);
             const basicBillsData = [];
             const extraBillsData = [];
-            console.log(d, time);
 
             for (let i = 0; i < numRolls; i++) {
                 let mess = Math.ceil(13 * Math.random());
@@ -76,7 +90,7 @@ export default function insertBills(connection, extrasInMenuArray, extrasDataArr
                     mess,
                     dateString,
                     times[time],
-                    null,
+                    getMealCost(mess, dateString, time),
                 ]);
                 if (Math.random() < 0.3) {
                     const mealId = (100 * mess) + (10 * d.getDay()) + time;
@@ -92,7 +106,7 @@ export default function insertBills(connection, extrasInMenuArray, extrasDataArr
                         itemId,
                         1,
                         true,
-                        extrasPrices[itemId],
+                        extrasPrices[mess][itemId],
                     ]);
                 }
             }

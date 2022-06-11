@@ -131,15 +131,15 @@ export const ViewStudentBillsToolbar = ({onSubmit, studentBills, ...props}) => {
                     variant="h6"
                     gutterBottom
                   >
-                    Basic Meals Bill: ₹ {studentBills.basicBills.map((meal) => meal.cost).reduce((a, b) => a + b, 0)} • 
-                    Extras Bill: ₹ {studentBills.extrasBills.map((extra) => extra.cost).reduce((a, b) => a + b, 0)} <br/>
+                    Basic Meals Bill: ₹ {studentBills.basicBills.map((meal) => meal.cost).reduce((a, b) => a + b, 0).toFixed(2)} • 
+                    Extras Bill: ₹ {studentBills.extrasBills.map((extra) => extra.cost).reduce((a, b) => a + b, 0).toFixed(2)} <br/>
                   </Typography>
                   <Typography
                     color="textPrimary"
                     variant="h6"
                   >
-                    Total Bill Amount: ₹ {studentBills.basicBills.map((meal) => meal.cost).reduce((a, b) => a + b, 0) + 
-                                          studentBills.extrasBills.map((extra) => extra.cost).reduce((a, b) => a + b, 0)}
+                    Total Bill Amount: ₹ {(studentBills.basicBills.map((meal) => meal.cost).reduce((a, b) => a + b, 0) + 
+                                          studentBills.extrasBills.map((extra) => extra.cost).reduce((a, b) => a + b, 0)).toFixed(2)}
                   </Typography>
                 </Box>
               </Box>

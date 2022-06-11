@@ -68,16 +68,18 @@ export const ManageMealCostsResults = ({ mealCosts, appliedFilter, onDelete, ...
         totalCost: totalCost,
       }),
     });
-    // const data = await response.json();
-    // if(response.status == 200) {
-    //   setStudentBills(data);
-    // } else {
-    //   setAlertData({
-    //     severity: 'error',
-    //     message: data.message,
-    //     visible: true,
-    //   });
-    // }
+    const data = await response.json();
+    if(response.status == 200) {
+        let newMeal = meal;
+        newMeal.total_cost = totalCost;
+        setMealCosts(mealCosts.map(m => m.time_id == meal.time_id ? newMeal : m));
+    } else {
+      setAlertData({
+        severity: 'error',
+        message: data.message,
+        visible: true,
+      });
+    }
   }
 
   return (
@@ -111,7 +113,7 @@ export const ManageMealCostsResults = ({ mealCosts, appliedFilter, onDelete, ...
                     {meal.meal_time}
                   </TableCell>
                   <TableCell>
-                    {meal.total_cost != null ? "₹ "+meal.total_cost : 
+                    {meal.total_cost != null ? "₹ "+meal.total_cost.toFixed(2) : 
                       <Button
                         variant="contained" 
                         startIcon={<AddBoxIcon />} 

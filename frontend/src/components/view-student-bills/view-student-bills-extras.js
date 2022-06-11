@@ -45,24 +45,24 @@ export const ViewStudentBillsExtras = ({ studentBills, showMessName,...rest }) =
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell width="25%">
+                <TableCell width="20%">
                   Date
                 </TableCell>
                 {showMessName && 
-                <TableCell width="25%">
+                <TableCell width="20%">
                   Mess Name
                 </TableCell>
                 }
-                <TableCell width="25%">
+                <TableCell width="20%">
                   Meal Time
                 </TableCell>
-                <TableCell width="40%">
+                <TableCell width="20%">
                   Item Name
                 </TableCell>
                 <TableCell width="5%">
                   Quantity
                 </TableCell>
-                <TableCell width="5%">
+                <TableCell width="15%">
                   Cost
                 </TableCell>
               </TableRow>
@@ -91,7 +91,7 @@ export const ViewStudentBillsExtras = ({ studentBills, showMessName,...rest }) =
                     {item.quantity}
                   </TableCell>
                   <TableCell>
-                    ₹ {item.cost}
+                    ₹ {item.cost.toFixed(2)}
                   </TableCell>
                 </TableRow>
               ))}
